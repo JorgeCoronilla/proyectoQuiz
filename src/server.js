@@ -48,8 +48,7 @@ app.use(express.static('uploads'));
 //set temaplate engine
 app.set('view engine', 'ejs');
 
-// route prefix 
-//app.use("", require("./routes/routes"));
+
 
 app.listen(PORT, () => {
     console.log(`Server started at http://127.0.0.1:${PORT}`);
