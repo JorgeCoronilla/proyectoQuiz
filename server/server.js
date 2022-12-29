@@ -14,10 +14,11 @@ const questionsRoutes = require("./routes/questionsRoutes");
 const PORT =  process.env.PORT;
 
 //middlewares
+app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cors());
-app.use(cookieParser());
+
 
 
 //Routers
