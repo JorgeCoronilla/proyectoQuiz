@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { defaultFetch } from '../../helpers/defaultFetch';
 export const ChangePass = () => {
-  const [warning, setWarning] = useState(false);
   const { token } = useParams();
   //const navigate = useNavigate();
 
@@ -24,9 +23,7 @@ export const ChangePass = () => {
         //Mensaje de error
       }
 
-    } else {
-      setWarning(true);
-    }
+    } 
   }
 
 

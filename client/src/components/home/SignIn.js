@@ -1,14 +1,15 @@
 import React from 'react'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { Link } from 'react-router-dom';
+import { BackHome } from './backHome';
 
-export const SignIn = () => {
+export const SignIn = ({setDisplay}) => {
     const sigInSub = async e => {
         e.preventDefault();
         var userEmail = { email: e.target.email.value };
         const res = await defaultFetch("http://localhost:3001/signin", "POST", userEmail);
-        console.log(res);
         if (res) { 
+            console.log(res.mensaje)
             //navigate("/login")
           } else {
             //Mensaje de error
@@ -18,18 +19,20 @@ export const SignIn = () => {
 
     return (
         <div>
-            <div className='registro'>
+            <div className='formContainer'>
                 <form onSubmit={sigInSub}>
                     <h6>Regístrate para obtener tu cuenta</h6>
                     <p>A continuación confirme su correo electrónico para finalizar el registro.</p>
                     <input type="email" placeholder="email" required name="email"></input>
-                    <br />
-                    <input type="checkbox" name="newsletter" />
-                    <p>Sí, deseo recibir noticias y ofertas de ApuShop acerca de productos, eventos, etc.</p>
+                    <div>
+                    <input type="checkbox" className='checkbox' name="newsletter" />
+                    <p className='checkbox'>Sí, deseo recibir noticias y ofertas de ApuShop acerca de productos, eventos, etc.</p></div>
+                    <br/>
                     <button type='submit'>Registrarse</button>
                 </form>
                 <Link to='/login'>¿Ya tiene una cuenta? Iniciar sesión</Link>
             </div>
+            <BackHome setDisplay={setDisplay}/>
         </div>
     )
 }

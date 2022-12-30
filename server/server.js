@@ -7,9 +7,6 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 
 const router = require("./routes/routes");
-const adminRoutes = require("./routes/adminRouter");
-const quizzRoutes = require("./routes/quizzRoutes");
-const questionsRoutes = require("./routes/questionsRoutes");
 
 const PORT =  process.env.PORT;
 
@@ -23,9 +20,6 @@ app.use(cors());
 
 //Routers
 app.use("/", router);
-app.use("/admin", adminRoutes);
-app.use("/quizz", quizzRoutes);
-app.use("/questions", questionsRoutes);
 
 //Set upload folder as static
 app.use(express.static('uploads'));

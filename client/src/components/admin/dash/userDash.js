@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from 'react'
+import { defaultFetch } from '../../../helpers/defaultFetch'
+import Cookies from 'universal-cookie';
+import { Logo } from '../../logo';
+import { MainDash } from './mainDash';
+import { Quizzes } from './quizzes/quizzes';
+import { UserAccount } from './account/userAccount';
+import { NavbarQuizzes } from './quizzes/navbarQuizzes';
+export const UserDash = () => {
+    const [userOk, setUserOk] = useState();
+    const [display, setDisplay] = useState("main");
+    const cookies = new Cookies();
+    var cookieCheck= cookies.get("session");
+    
+    useEffect(() => { 
+     
+        defaultFetch("http://localhost:3001/check", "POST", {token: cookieCheck })
+        .then((res) => {
+          if (res.mensaje) {setUserOk(true)} else {setUserOk(false)}
+        })
+    
+     }, [])
+     if (userOk){ return (
+        <div>
+             {display === "quizzes" && <NavbarQuizzes setDisplay={setDisplay} />}
+            {display !== "create" && <Logo/>}
+            {display === "main" && <MainDash setDisplay={setDisplay} />}
+            {display === "quizzes" && <Quizzes setDisplay={setDisplay} />}
+            {display === "account" && <UserAccount setDisplay={setDisplay} />}   
+        </div>
+      ) }
+}

@@ -1,12 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie';
 import { defaultFetch } from '../../helpers/defaultFetch';
 export const Register = () => {
 
-
-  const [warning, setWarning] = useState(false);
-  const cookies = new Cookies();
   const { token } = useParams();
   //const navigate = useNavigate();
 
@@ -31,9 +27,6 @@ export const Register = () => {
       } else {
         //Mensaje de error
       }
-
-    } else {
-      setWarning(true);
     }
   }
 

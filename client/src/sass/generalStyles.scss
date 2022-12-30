@@ -2,7 +2,17 @@
 font-family: 'Monoton', cursive;
 font-family: 'Roboto', sans-serif;
 font-family: 'Roboto Condensed', sans-serif;
-*/
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 *{
@@ -11,7 +21,7 @@ font-family: 'Roboto Condensed', sans-serif;
 }
 
 body {
-    background-color: rgba(106, 142, 35, 0.783);
+    background-color: #6b8f24c8;
     font-family: 'Roboto', sans-serif;
     margin: 0;
    
@@ -22,3 +32,99 @@ div{
     padding: 0;
 }
 
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    margin: 60px 10% 40px;
+    border-radius: 5px;
+}
+
+.formContainer div{
+    align-self:flex-end;
+    margin: 10px auto 0 auto;
+}
+
+.formContainer button {
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(194, 194, 194);
+    color: white;
+    background-color: rgb(42, 42, 42);
+    width: 100%;
+}
+
+.formContainer input {
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(194, 194, 194);
+    width: 91%;
+}
+input:focus{
+    outline:none;
+    border:solid 2px rgba(106, 142, 35, 0.537)
+}
+.formContainer h5 {
+    font-size: 28px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    margin-bottom: 25px;
+}
+
+.formContainer h6 {
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.formContainer p {
+    font-size: 15px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.formContainer .checkbox{
+    display:inline;
+    margin-left: 0;
+    padding: 0;
+}
+
+input.checkbox {
+    height: 15px;
+    display: inline;
+    width: 15px;
+    margin: 0;
+    margin-right: 10px;
+    padding: 0;
+}
+p.chakbox{
+    margin-bottom: 10px;
+}
+
+a{
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color:rgb(33, 37, 22);
+    margin-top:10px;
+}
+
+.text {
+    margin:10%;
+}
+
+.spacer{
+    height: 130px;
+    background-color: transparent;
+    width: 100%;
+}

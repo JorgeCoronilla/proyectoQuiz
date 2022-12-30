@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { UserDash } from '../components/admin/dash/userDash'
 import { Error404 } from '../components/Error404'
 import { ChangePass } from '../components/home/changePass'
 import { Register } from '../components/home/register'
@@ -19,6 +20,7 @@ export const AppRoutes = () => {
         <Route path="*" element={<Error404/>} />
 
         {/*User dash*/}
+        <Route path="/dash" element={<UserDash/>} />
         {/*Quizz for guests*/}
         {/*Quizz for user*/}
 

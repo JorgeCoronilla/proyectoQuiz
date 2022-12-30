@@ -6,14 +6,27 @@ const Guestcontroller = require('../controllers/guest.controller');
 const { verify } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
 
+
+/*Test*/
 router.get("/", Testcontroller.test.test1);
 router.get("/test", verifyToken, Testcontroller.test.test2)
+
+
+/*Home*/
 router.post("/login", Usercontroller.User.login)
 router.put("/register", Usercontroller.User.register)
 router.post("/signin", Usercontroller.User.sigin)
 router.post("/recover-pass", Usercontroller.User.recover)
 router.post("/change-pass", Usercontroller.User.change_pass)
+router.post("/check", verifyToken, Usercontroller.User.checker)
+
+/*quizzes*/
+router.post("/quizzes", Usercontroller.User.getQuizzes)
+router.put("/quizzes/new", Usercontroller.User.insertQuizz)
+
+/*Guest*/
 router.get("/join", Guestcontroller.Guest.join)
+
 
 function verifyToken2(req, res, next) {
     const bearerHeader = req.headers['authorization']
@@ -27,14 +40,17 @@ function verifyToken2(req, res, next) {
 }
 
 function verifyToken(req, res, next) {
-    let tokenRaw = req.cookies.session
-    console.log("WWWW" + req.cookies.session)
+    let tokenRaw = req.body.token
     if (typeof tokenRaw !== "undefined") {
         req.token = tokenRaw;
         jwt.verify(req.token, process.env.JWT_SECRET_KEY, (error, authData) => {
             if (error) {
-                res.json(error.name)
-                res.sendStatus(403);
+                res.json({ validation: false, mensaje: error.name })
             } else {
-                next(); }})}}
+                console.log("Da paso")
+                next();
+            }
+        })
+    }
+}
 module.exports = router;

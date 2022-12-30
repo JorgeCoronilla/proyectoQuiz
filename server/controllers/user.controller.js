@@ -2,6 +2,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const sequelize = require('../ddbb/sql/index');
 const UserModel = require('../ddbb/sql/models/User');
+const QuizzModel = require('../ddbb/sql/models/Quizzes');
 const sendemail = require('../controllers/email.controller');
 
 const User = {
@@ -30,9 +31,10 @@ const User = {
                     id: user.id,
                     user_name: user.user_name,
                     email: user.email
-                }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' })
+                }, process.env.JWT_SECRET_KEY, { expiresIn: '4h' })
+                res.json({ validation: true, token, user: userData })
 
-            } else { res.json({ mensaje: "No coincide?" }) }
+            } else { res.json({ validation: false }) }
 
         } catch (error) {
             res.status(500)
@@ -122,7 +124,64 @@ const User = {
             res.status(500)
             res.send(error.message)
         }
-    }
+    },
+    checker: async (req, res) => {
+        try {
+           res.json({ mensaje: true })
+        } catch (error) {
+            res.send(error.message)
+        }
+    },
+    getQuizzes: async (req, res) => {
+        let token = req.body.token;
+        let userName
+        jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+            if (error) {
+                console.log("Error del token")
+                //res.json({ validation: false, mensaje: error })
+            } else {userName=user.user_name}
+        }) 
+        try {
+            const quizzes = await QuizzModel.findAll({ where: { fk_user_name: userName } })
+            console.log(quizzes); 
+            res.json(quizzes)                
 
+        } catch (error) {
+           res.json({mensaje: false})
+        }
+    },
+    insertQuizz: async (req, res) => {
+        let token = req.body.token;
+         let userName
+         jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+             if (error) {
+                 console.log("Error del token")
+                 //res.json({ validation: false, mensaje: error })
+             } else {userName=user.user_name}
+          })
+        const {  name_,topic,level_} = req.body
+             try {
+                 let newQuizz = {
+                        fk_user_name: userName,
+                        name_:name_,
+                        topic:topic,
+                        level_: level_,
+                        total_guests: 0,
+                        total_successful: 0
+                 }
+     
+                 QuizzModel.create(newQuizz)
+                     .then((data) => { res.json({ mensaje: true }) })
+                     .catch(err => {
+                         if (err) { res.json({ mensaje: false }) }
+                     })
+     
+             } catch (error) {
+                 //res.status(500)
+                 res.send(error.code)
+             }
+         }
+    
+          
 }
 module.exports = { User }
