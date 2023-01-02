@@ -3,7 +3,9 @@ const jwt = require("jsonwebtoken");
 const sequelize = require('../ddbb/sql/index');
 const UserModel = require('../ddbb/sql/models/User');
 const QuizzModel = require('../ddbb/sql/models/Quizzes');
+const QuestionModel = require('../ddbb/sql/models/Questions');
 const sendemail = require('../controllers/email.controller');
+
 
 const User = {
 
@@ -138,7 +140,7 @@ const User = {
         jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
             if (error) {
                 console.log("Error del token")
-                //res.json({ validation: false, mensaje: error })
+                res.json({ validation: false})
             } else {userName=user.user_name}
         }) 
         try {
@@ -151,37 +153,108 @@ const User = {
         }
     },
     insertQuizz: async (req, res) => {
-        let token = req.body.token;
-         let userName
-         jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+        const {  name_,topic,level_, token} = req.body
+        console.log(token)
+        console.log(req.body)
+         
+        jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
              if (error) {
-                 console.log("Error del token")
-                 //res.json({ validation: false, mensaje: error })
+                 console.log(error)
              } else {userName=user.user_name}
           })
-        const {  name_,topic,level_} = req.body
+       
              try {
-                 let newQuizz = {
-                        fk_user_name: userName,
-                        name_:name_,
-                        topic:topic,
-                        level_: level_,
-                        total_guests: 0,
-                        total_successful: 0
-                 }
+               var newQuizz= {fk_user_name: userName,
+                    name_:name_,
+                    topic:topic,
+                    level_: level_, 
+                    total_guests: 0, 
+                    total_successful: 0}
      
-                 QuizzModel.create(newQuizz)
-                     .then((data) => { res.json({ mensaje: true }) })
+                const data = await QuizzModel.create(newQuizz)
+                res.json(data.dataValues.id)
+                console.log(data.dataValues.id)
+             } catch (error) {
+                 console.log(error)
+                 res.json({mensaje:"false"})
+             }
+         },
+         
+    insertQuestion: async (req, res) => {
+        const { question,right_answer,wrong_answer1, wrong_answer2, wrong_answer3, quizz_id, token} = req.body
+        console.log(token)
+        console.log(req.body)
+         
+       jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+             if (error) {
+                 console.log(error)
+             } else {userName=user.user_name}
+          })
+       
+             try {
+               var newQuestion= {fk_user_name: userName,
+                question:question,
+                right_answer:right_answer,
+                wrong_answer1: wrong_answer1,
+                wrong_answer2: wrong_answer2, 
+                wrong_answer3: wrong_answer3, 
+                quizz_id: quizz_id}
+                 QuestionModel.create(newQuestion)
+                     .then((data) => { 
+                        res.json({ mensaje: true, id: data.id})})
                      .catch(err => {
-                         if (err) { res.json({ mensaje: false }) }
+                         if (err) { res.send(err) }
                      })
      
              } catch (error) {
-                 //res.status(500)
-                 res.send(error.code)
+                 res.json({mensaje:"false"})
              }
-         }
+         },
+          getQuestions: async (req, res) => {
+            const {token, quizz_id} = req.body;
+            jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+                if (error) {
+                    console.log(error);
+                    res.json({ validation: false})
+                } 
+            }) 
+            try {
+                const questions = await QuestionModel.findAll({ where: { quizz_id: quizz_id } })
+                console.log(questions); 
+                res.json(questions)                
     
-          
+            } catch (error) {
+               res.json({mensaje: false})
+            }
+        },
+        updateQuestion: async (req, res) => {
+            const { question,right_answer,wrong_answer1, wrong_answer2, wrong_answer3, id, token} = req.body
+            console.log(token)
+           console.log()
+             
+           jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+                 if (error) {
+                     console.log(error)
+                 } else {userName=user.user_name}
+              })
+              console.log("pasa " + id)
+                 try {
+                   var newData= {
+                    question:question,
+                    right_answer:right_answer,
+                    wrong_answer1: wrong_answer1,
+                    wrong_answer2: wrong_answer2, 
+                    wrong_answer3: wrong_answer3}
+                     QuestionModel.update(newData,{ where: { id: id } })
+                         .then((data) => { 
+                            res.json({ mensaje: true, id: data.id})})
+                         .catch(err => {
+                             if (err) { res.send(err) }
+                         })
+         
+                 } catch (error) {
+                     res.json({mensaje:"false"})
+                 }
+             },
 }
 module.exports = { User }

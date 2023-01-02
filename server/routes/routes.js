@@ -5,7 +5,7 @@ const Usercontroller = require('../controllers/user.controller')
 const Guestcontroller = require('../controllers/guest.controller');
 const { verify } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
-
+const cors = require("cors");
 
 /*Test*/
 router.get("/", Testcontroller.test.test1);
@@ -14,7 +14,7 @@ router.get("/test", verifyToken, Testcontroller.test.test2)
 
 /*Home*/
 router.post("/login", Usercontroller.User.login)
-router.put("/register", Usercontroller.User.register)
+router.post("/register", Usercontroller.User.register)
 router.post("/signin", Usercontroller.User.sigin)
 router.post("/recover-pass", Usercontroller.User.recover)
 router.post("/change-pass", Usercontroller.User.change_pass)
@@ -22,7 +22,13 @@ router.post("/check", verifyToken, Usercontroller.User.checker)
 
 /*quizzes*/
 router.post("/quizzes", Usercontroller.User.getQuizzes)
-router.put("/quizzes/new", Usercontroller.User.insertQuizz)
+router.post("/quizzes/new", Usercontroller.User.insertQuizz)
+
+
+/*questions*/
+router.post("/questions/",Usercontroller.User.getQuestions), 
+router.post("/questions/new",Usercontroller.User.insertQuestion), 
+router.post("/questions/update",Usercontroller.User.updateQuestion), 
 
 /*Guest*/
 router.get("/join", Guestcontroller.Guest.join)

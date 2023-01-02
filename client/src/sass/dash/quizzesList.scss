@@ -13,11 +13,11 @@
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.206);
     border: 2px solid #4f691e;
-    ;
-    margin: 10px 5% 10px;
+    margin: 10px 5% 40px;
     border-radius: 5px;
     color: white;
-
+    height: 300px;
+    overflow-y: scroll;
 }
 
 .quizzListClose p {
@@ -58,6 +58,8 @@
     margin: 0 0 5px 5px;
 }
 
+.quizzContainer{margin-top: 100px;}
+
 .linksRow {
     display: flex;
     justify-content: end;
@@ -77,16 +79,24 @@
     border-radius: 5px;
 }
 
-.AddQuizz p,
-.AddQuestion h5 {
+.AddQuizz p
+ {
     display: inline;
     color: rgb(255, 255, 255);
-    font-size: 25px;
+    font-size: 20px;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.AddQuestion h5 {
+    display: inline;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 0;
+}
+
 .AddQuestion {
-    padding: 20px;
+    padding:  15px 20px;
     background-color: rgba(255, 255, 255, 0.206);
     //border: 2px solid #4f691e;
     border: 2px solid white;
@@ -130,15 +140,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin: 0;
 }
 
 .AddQuestion h4 {
-    color: rgb(255, 255, 255);
-    font-size: 15px;
+    color: rgb(64, 64, 64);
+    font-size: 25px;
     font-family: 'Roboto Condensed', sans-serif;
-    margin-bottom: 5px;
-    margin-top: 15px;;
+    margin:0;
 }
 .AddQuestion h6 {
     font-size: 18px;
@@ -158,6 +167,7 @@
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 600;
     width: 95%;
+    margin-bottom: 8px;
 }
 
 .AddQuestion select{
@@ -200,4 +210,82 @@
     margin-top: 10px;
     color: rgb(150, 13, 13);
     border-color: rgb(150, 13, 13);;
+}
+
+.finish{
+    width: fit-content;
+    margin: 5px auto 5px auto;
+ 
+}
+.finish h6 {
+    font-size: 25px;
+    width: fit-content;
+    color: rgb(48, 66, 15);
+    padding: 5px;
+}
+
+
+h5.quizzName{
+font-size: 30px;
+}
+
+
+.questionsListContainer{
+    margin: 10px 5% 10px;
+}
+.questionsListContainer h4 {
+    color: white;
+    font-size: 18px;
+    margin: 25px auto 0 auto;
+}
+
+.questionsListContainer p {
+    color: rgb(65, 89, 22);
+    font-size: 18px;
+}
+
+.questionsList{
+    
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.206);
+    margin: 10px 0 15px;
+    border-radius: 5px;
+}
+
+.questionEdit{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+.questionEdit input{
+    background-color: transparent;
+    color: rgb(48, 48, 48);
+    border: 2px solid rgb(48, 66, 15);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    width: 95%;
+    margin-bottom: 8px;
+}
+
+p.editar {
+    color:white;
+    margin-right: 5px;
+    font-size: 16px;
+}
+p.eliminar{
+    font-size: 16px;
+}
+.questionEdit button{
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    margin-bottom: 8px;
 }

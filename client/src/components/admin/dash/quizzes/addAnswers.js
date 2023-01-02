@@ -15,7 +15,7 @@ export const AddAnswers = () => {
         <div>
              {rightAnswer === "" ? 
             <InsertRight/> 
-            :<InsertWrong/>
+            :<InsertWrong />
                 }
         </div>
     )

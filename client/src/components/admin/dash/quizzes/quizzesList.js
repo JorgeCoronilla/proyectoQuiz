@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { defaultFetch } from '../../../../helpers/defaultFetch';
 
-export const QuizzesList = () => {
+export const QuizzesList = ({setLogo, logo}) => {
     const{setDisplay}=useContext(CreateQuizzContext)
     const [showQuizzes, setShowQuizzes] = useState(false);
     const [quizzes, setQuizzes] = useState();
@@ -20,6 +20,7 @@ export const QuizzesList = () => {
 
     const checkQuizzes = () =>{
         setShowQuizzes(!showQuizzes)
+        setLogo(!logo)
     }
   return (
     <div>

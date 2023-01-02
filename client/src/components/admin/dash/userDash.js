@@ -9,8 +9,11 @@ import { NavbarQuizzes } from './quizzes/navbarQuizzes';
 export const UserDash = () => {
     const [userOk, setUserOk] = useState();
     const [display, setDisplay] = useState("main");
+    const [logo, setLogo] = useState(true);
+
     const cookies = new Cookies();
     var cookieCheck= cookies.get("session");
+   
     
     useEffect(() => { 
      
@@ -20,13 +23,15 @@ export const UserDash = () => {
         })
     
      }, [])
+
+
      if (userOk){ return (
         <div>
              {display === "quizzes" && <NavbarQuizzes setDisplay={setDisplay} />}
-            {display !== "create" && <Logo/>}
+            {logo && <Logo/>}
             {display === "main" && <MainDash setDisplay={setDisplay} />}
-            {display === "quizzes" && <Quizzes setDisplay={setDisplay} />}
-            {display === "account" && <UserAccount setDisplay={setDisplay} />}   
-        </div>
+            {display === "quizzes" && <Quizzes setDisplay={setDisplay} logo={logo} setLogo={setLogo} />}
+            {display === "account" && <UserAccount setDisplay={setDisplay} logo={logo} setLogo={setLogo} />}
+            </div>
       ) }
 }

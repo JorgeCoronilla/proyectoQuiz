@@ -5,9 +5,9 @@ export const MainDash = ({setDisplay}) => {
     const quizzes = () => { setDisplay("quizzes") }
   return (
     <div>
-    <div className='linkContainer'>
-                <h6 className='login' onClick={account}>Cuenta</h6>
-                <h6 className='signin' onClick={quizzes}>Quizzes</h6>
+    <div className='quizzCuenta'>
+                <h6 id='cuentaBtn' onClick={account}>Cuenta</h6>
+                <h6 id='quizzesBtn' onClick={quizzes}>Quizzes</h6>
             </div>
     </div>
   )
