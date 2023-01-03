@@ -1,9 +1,10 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { defaultFetch } from '../../helpers/defaultFetch';
+import { Logo } from '../logo';
 export const ChangePass = () => {
   const { token } = useParams();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const newPass = async e => {
     e.preventDefault();
@@ -15,10 +16,10 @@ export const ChangePass = () => {
         password_: e.target.pass.value
       }
 
-      const res = await defaultFetch("http://localhost:3001/change-pass", "PUT", newUser)
+      const res = await defaultFetch("http://localhost:3001/change-pass", "post", newUser)
       console.log(res)
       if (res) {
-        //navigate("/login")
+        navigate("/")
       } else {
         //Mensaje de error
       }
@@ -28,21 +29,24 @@ export const ChangePass = () => {
 
 
   return (
-    <div><div>Su email ha sido verificado.
-    ¡Gracias!
-    <div className='registro'>
+    <div><Logo/>
+    <div className='register-container'><div>
+      <h5>Su email ha sido verificado.</h5>
+    <h6>¡Gracias!</h6>
+    <div className='recoverPass'>
       <form onSubmit={newPass}>
-        <br />
-        <p>Contraseña</p>
+       
+        <h4>Nueva contraseña</h4>
         <input type="password" name='pass' required></input>
-        <br />
-        <p>Confirma contraseña</p>
+        
+        <h4>Confirma contraseña</h4>
         <input type="password" name='confirmPass' required></input>
-        <br />
+       
         <button type="submit">Guardar</button>
       </form>
     </div>
   </div>
+    </div>
     </div>
   )
 }

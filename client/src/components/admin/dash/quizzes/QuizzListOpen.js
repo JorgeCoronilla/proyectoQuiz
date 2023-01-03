@@ -1,35 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiPlay } from "react-icons/fi";
-
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'universal-cookie';
+import { EditQuizz } from './editQuizz';
 export const QuizzListOpen = ({ setDisplay, quizzes }) => {
-const playQuizz = e => {
- console.log(e.target.id)
-}
-const quizzStats = e => {
-  console.log(e.target.id)
- }
- const editQuizz = e => {
-  console.log(e.target.id)
- }
- const deleteQuizz = e => {
-  console.log(e.target.id)
- }
+
+  const [showEdit, setShowEdit] = useState(false);
+  const [currentQuizz, setCurrentQuizz] = useState()
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+
+  const playQuizz = e => {
+    localStorage.setItem("currentQuiz", JSON.stringify(e));
+    console.log(e)
+    navigate("/test");
+
+  }
+  const editQuizz = e => {
+    setShowEdit(!showEdit)
+    setCurrentQuizz(e.target.id)
+   
+
+  }
   return (
+    <div>
+      <div className='quizzListOpen'>
+        {quizzes.map((quizz, index) => {
+          return (
+            <div className='quizzListRow' key={index} >
 
-    <div className='quizzListOpen'>
-      {quizzes.map((quizz, index) => { 
-        return(
-          <div className='quizzListRow' key={index}>
-          <h5 id={quizz.id} onClick={playQuizz}><span><FiPlay /></span>{quizz.name_}</h5>
-          <div><h6>Dificultad: {quizz.level_} | tema: {quizz.topic}</h6></div>
-          <div className='linksRow'>
-            <div><p id={quizz.id} onClick={quizzStats}>stats</p></div>
-            <div><p id={quizz.id} onClick={editQuizz}>editar</p></div>
-            <div><p id={quizz.id} onClick={deleteQuizz}>eliminar</p></div>
+              <div>
+                <div className='titleClose'>
+                  <div>
+                    <h5 id={quizz.id} onClick={editQuizz}>{quizz.name_}</h5>
+                  </div>
+                  <div>
+                    <h5 onClick={()=>playQuizz(quizz.id)}><span>{quizz.id}<FiPlay /></span></h5>
+                  </div>
+                  </div>
+                <div>
+                  <h6>Dificultad: {quizz.level_} | tema: {quizz.topic}</h6>
+                </div>
+              </div>
             </div>
-        </div>
-        )})}
-    </div>
+          )
+        })}
+        {showEdit && <EditQuizz quizzes={quizzes} showEdit={showEdit} setShowEdit={setShowEdit} currentQuizz={currentQuizz} />
+        }
+      </div>
 
+    </div>
   )
 }

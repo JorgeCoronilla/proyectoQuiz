@@ -17,7 +17,6 @@ input:-webkit-autofill:active{
 
 *{
     margin: 0;
-    /*border: 1px solid red;*/
 }
 
 body {
@@ -32,13 +31,14 @@ div{
     padding: 0;
 }
 
+
 .formContainer {
-    display: flex;
-    flex-direction: column;
+    
     padding: 20px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.224);
+    border: solid 3px  rgb(48, 66, 15);;
     margin: 60px 10% 40px;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
 }
 
 .formContainer div{
@@ -47,15 +47,18 @@ div{
 }
 
 .formContainer button {
-    font-size: 18px;
+    font-size: 28px;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 900;
     text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid rgb(194, 194, 194);
-    color: white;
-    background-color: rgb(42, 42, 42);
+    padding: 5px;
+    /*border-radius: 5px;*/
+    /*border: 1px solid rgb(194, 194, 194);*/
+    /*color: white;*/
+   /* background-color: rgb(42, 42, 42);*/
+   color: rgb(48, 66, 15);
+   background-color: transparent;
+   border: solid 3px  rgb(48, 66, 15);
     width: 100%;
 }
 
@@ -65,13 +68,16 @@ div{
     font-weight: 900;
     text-align: center;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid rgb(194, 194, 194);
+    /*border-radius: 5px;*/
+    /*border: 1px solid rgb(194, 194, 194);*/
+    background-color: transparent;
+    border: 3px solid white;
     width: 91%;
 }
 input:focus{
     outline:none;
-    border:solid 2px rgba(106, 142, 35, 0.537)
+    border:solid 2px rgb(58, 76, 22);
+    background-color: transparent;
 }
 .formContainer h5 {
     font-size: 28px;
@@ -80,6 +86,12 @@ input:focus{
     margin-bottom: 25px;
 }
 
+.formContainer h4 {
+    font-size: 24px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
 .formContainer h6 {
     font-size: 18px;
     font-family: 'Roboto Condensed', sans-serif;
@@ -107,7 +119,9 @@ input.checkbox {
     margin-right: 10px;
     padding: 0;
 }
-p.chakbox{
+
+
+p.chekbox{
     margin-bottom: 10px;
 }
 

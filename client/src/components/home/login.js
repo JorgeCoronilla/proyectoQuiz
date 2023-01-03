@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import Cookies from 'universal-cookie';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { BackHome } from './backHome';
+import { RecoverPass } from './recoverPass';
 
 export const Login = ({setDisplay}) => {
-
+const [recover, setRecover] = useState(false);
     const cookies = new Cookies();
     const navigate = useNavigate();
+    const recoverPass = () => {
+        setRecover(true);
+    }
     const sendLogin = async e => {
         e.preventDefault();
 
@@ -26,19 +29,28 @@ export const Login = ({setDisplay}) => {
         });
         localStorage.setItem("currentQuiz", "none")
     }
-    return (
-        <div>
-            <div className='formContainer'>
-                <form onSubmit={sendLogin}>
-                    <div><h5>Login</h5></div>
-                    <div><input type="email" name='email' placeholder='Correo electrónico' required ></input>
-                    </div>
-                    <div> <input type="password" name='pass' required placeholder='Contraseña'></input></div>
-                    <div><button type="submit">Log in</button></div>
-                </form>
-                <Link>¿Olvidaste tu contraseña? Recupérala aquí.</Link>
+    if (!recover){
+        return (
+            <div>
+                <div className='formContainer'>
+                    <form onSubmit={sendLogin}>
+                        <div><h5>Login</h5></div>
+                        <div><input type="email" name='email' placeholder='Correo electrónico' required ></input>
+                        </div>
+                        <div> <input type="password" name='pass' required placeholder='Contraseña'></input></div>
+                        <div><button type="submit">Log in</button></div>
+                    </form>
+                    <p onClick={recoverPass}>¿Olvidaste tu contraseña? Recupérala aquí.</p>
+                </div>
+                <BackHome setDisplay={setDisplay}/>
             </div>
-            <BackHome setDisplay={setDisplay}/>
-        </div>
-    )
+        )
+    } else{
+        return ( 
+        
+        <RecoverPass setRecover={setRecover}/>
+        )
+       
+    }
+ 
 }

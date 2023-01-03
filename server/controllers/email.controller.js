@@ -65,7 +65,7 @@ const email = {
                                       Para terminar de configurar tu cuenta y empezar a usar Quizzo, confirma que
                                       tenemos tu correo electrónico correcto.</p>
                                   <div style="margin-top:28px"><a
-                                          href="http://127.0.0.1:3001/register/${jwt}"
+                                          href="http://127.0.0.1:3000/register/${jwt}"
                                           style="box-sizing:border-box;border-radius:3px;border-width:0;border:none;display:inline-flex;font-style:normal;font-size:inherit;height:2.28571429em;line-height:2.28571429em;margin:0;outline:none;padding:0 12px;text-align:center;vertical-align:middle;white-space:nowrap;text-decoration:none;background:#6b8f24c8;color:#ffffff"
                                           target="_blank"
                                           >Verifica tu correo electrónico</a></div>
@@ -158,7 +158,7 @@ const email = {
                             style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;font-size:14px;font-weight:400;letter-spacing:-0.005em;color:#091e42;line-height:20px;margin-top:12px">
                             Para terminar de cambiar tu contraseña visita el siguiente link e ingresa una nueva contraseña.</p>
                         <div style="margin-top:28px"><a
-                                href="http://127.0.0.1:3001/change-pass/${token}"
+                                href="http://127.0.0.1:3000/change-pass/${token}"
                                 style="box-sizing:border-box;border-radius:3px;border-width:0;border:none;display:inline-flex;font-style:normal;font-size:inherit;height:2.28571429em;line-height:2.28571429em;margin:0;outline:none;padding:0 12px;text-align:center;vertical-align:middle;white-space:nowrap;text-decoration:none;background:#6b8f24c8;color:#ffffff"
                                 target="_blank"
                                 >Cambiar contraseña</a></div>

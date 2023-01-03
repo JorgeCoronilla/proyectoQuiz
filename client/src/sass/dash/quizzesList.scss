@@ -67,6 +67,14 @@
 
 .quizzListRow {
     border-bottom: 1px solid rgba(255, 255, 255, 0.44);
+    margin-bottom: 10px;
+}
+.quizzListRow h5{
+    margin-bottom: 5px;
+}
+
+.quizzListRow h6{
+    margin-top: 5px;
 }
 
 .AddQuizz {
@@ -121,7 +129,7 @@
     
 }
 
-.AddQuestion button{
+.AddQuestion button, .AddQuestion select{
     background-color: transparent;
     color: rgb(48, 66, 15);
     border: 2px solid rgb(48, 66, 15);
@@ -257,7 +265,7 @@ font-size: 30px;
     font-weight: 600;
     font-size: 18px;
 }
-.questionEdit input{
+.questionEdit input, .questionEdit select{
     background-color: transparent;
     color: rgb(48, 48, 48);
     border: 2px solid rgb(48, 66, 15);
@@ -287,5 +295,55 @@ p.eliminar{
     font-size: 18px;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 600;
+    margin: 10px 5px 8px 0;
+}
+
+.quizzEdit-container{
+    position: absolute;
+    top:0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.483);
+    width: 100%;
+    height: 100%;
+}
+
+.quizzEdit{
+    background-color:  hsl(80, 60%, 35%);
+    border: 3px solid rgb(199, 214, 170);
+    margin: 120px 20px 0 20px;
+    padding: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.quizzEdit input, .quizzEdit select {
+    background-color: transparent;
+    color: rgb(48, 48, 48);
+    border: 2px solid rgb(48, 66, 15);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    width: 95%;
     margin-bottom: 8px;
+}
+
+.quizzEdit  button{
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    margin: 10px 5px 8px 0;
+}
+
+.quizzEdit  p{
+    text-align: left;
+    margin: 0;
+    font-size: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
 }

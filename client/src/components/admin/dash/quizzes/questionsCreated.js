@@ -1,11 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import Cookies from 'universal-cookie';
+import { defaultFetch } from '../../../../helpers/defaultFetch';
 
-
-export const QuestionsCreated = () => {
+export const QuestionsCreated = ({ refresh, setRefresh }) => {
     const [showEdit, setShowEdit] = useState(false);
     const cookies = new Cookies();
+
 
     const edit = () => {
         setShowEdit(!showEdit)
@@ -16,12 +17,18 @@ export const QuestionsCreated = () => {
     } = useContext(CreateQuizzContext);
 
     const deleteQuestion = e => {
+        let token = cookies.get('session')
+        console.log(e.target.id)
 
+        defaultFetch("http://localhost:3001/questions/delete", "DELETE", {id: e.target.id,token: token })
+        .then((res) => {
+          if (res.mensaje) {console.log(res)}
+        })
+        setShowEdit(!showEdit);
+        setRefresh(!refresh);
     }
     const changeQuestion = e => {
         e.preventDefault();
-
-       
         let token = cookies.get('session')
 
         let body = {
@@ -47,7 +54,7 @@ export const QuestionsCreated = () => {
         fetch("http://localhost:3001/questions/update", metaData)
             .then((res) => console.log(res))
         setShowEdit(!showEdit)
-
+        setRefresh(!refresh)
     }
 
     return (
@@ -58,15 +65,9 @@ export const QuestionsCreated = () => {
                     {questions.map((question, index) => {
                         return <div className='questionsList' key={index}>
                             {!showEdit ?
-                                <div>
+                                <div onClick={edit}>
                                     <p key={index}>{(index + 1)}-{question.question}</p>
-                                    <div className='linksRow'>
-                                        <div><p id={question.id} onClick={edit} className="editar">editar</p></div>
-                                        <div><p id={question.id} onClick={deleteQuestion} className="eliminar">eliminar</p></div>
-                                    </div>
-
                                 </div>
-
                                 :
                                 <div className='questionEdit'>
                                     <form onSubmit={changeQuestion}>
@@ -78,8 +79,10 @@ export const QuestionsCreated = () => {
                                         <input name="wrong1" defaultValue={question.wrong_answer1} ></input>
                                         <input name="wrong2" defaultValue={question.wrong_answer2} ></input>
                                         <input name="wrong3" defaultValue={question.wrong_answer3} ></input>
-                                        <p onClick={edit}>volver</p>
-                                        <button type="submit" className='addList'>Modificar</button>
+
+                                        <button type="submit" >Modificar</button>
+                                        <button onClick={edit} >volver</button>
+                                        <button onClick={deleteQuestion} id={question.id}>Eliminar</button>
                                     </form>
                                 </div>
                             }

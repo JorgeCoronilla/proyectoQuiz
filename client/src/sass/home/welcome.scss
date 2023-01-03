@@ -34,10 +34,9 @@
     background-color: rgb(42, 42, 42);
  }
  .linkContainer{
-    display: flex;
-    flex-direction: column;
+  
     padding: 10px;
-    margin: 60px 35% 40px;
+    margin: 60px auto 40px;
     width: fit-content;
  }
 
@@ -60,3 +59,159 @@
     padding-top: 5px;
     padding-bottom: 5px;
  }
+
+ .register-container{
+   padding-left:20px;
+   padding-right:30px;
+   margin-top: 40px;
+ }
+
+ .register-container h6{
+   color: white;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 28px;
+   margin-top: 40px;
+   text-align: center;
+ }
+
+ .register-container h5{
+   text-align: center;
+   color:rgb(48, 66, 15);
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 38px;
+   margin-top: 20px;
+   margin-bottom: 50px;
+
+ }
+
+ .register-container p{
+   color: white;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 18px;
+   margin-bottom: 40px;
+ }
+
+ .register-container input {
+   font-size: 18px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-weight: 900;
+   text-align: center;
+   padding: 5px;
+   background-color: transparent;
+   border: 3px solid  rgb(58, 76, 22);
+   width:93%;
+   margin-bottom: 15px;
+   margin-top: 15px;
+ }
+
+ .register-container button {
+   font-size: 25px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-weight: 900;
+   text-align: center;
+   padding: 5px;
+  color:white;
+  background-color: transparent;
+  border: solid 3px white;
+   width:auto;
+   margin-top:10px auto;
+ }
+ .register{
+   border: 1px solid rgb(48, 66, 15);
+   padding: 15px;
+ }
+
+ .register h5{
+   color: white;
+   font-size: 25px;
+   margin-bottom: 10px;
+ }
+
+ .register h4{
+   font-family: 'Roboto Condensed', sans-serif;
+   color: rgb(48, 66, 15);
+   font-size: 18px;
+   margin-bottom: 0;
+   margin-top: 10px;
+ }
+
+ .register input, .register select {
+   font-size: 18px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-weight: 900;
+   text-align: center;
+   padding: 5px;
+   /*border-radius: 5px;*/
+   /*border: 1px solid rgb(194, 194, 194);*/
+   background-color: transparent;
+   border: 3px solid  rgb(58, 76, 22);
+   width:93%;
+}
+.register input:focus{
+   outline:none;
+   border:solid 2px rgb(58, 76, 22);
+   background-color: transparent;
+   color: white;
+}
+
+.register button{
+   font-size: 18px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-weight: 900;
+   text-align: center;
+   padding: 5px;
+  color:white;
+  background-color: transparent;
+  border: solid 3px white;
+   width:auto;
+   margin-top:10px;
+}
+
+.error404 {
+   margin: 100px auto;
+   padding: 20px;
+}
+.error404 h5{
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 60px;
+   color: white;
+}
+.error404 h6{
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 30px;
+   color:rgb(58, 76, 22);
+   margin-bottom: 30px;
+   margin-top: 30px;
+}
+.error404 p{
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 30px;
+   color:rgb(58, 76, 22);
+   border: 3px solid rgb(58, 76, 22);
+   padding: 5px;
+   width: fit-content;
+   margin: 100px auto;
+}
+
+.recoverPass{
+   padding: 15px;
+}
+.recoverPass h4{
+   font-size: 18px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 18px;
+   color:rgb(58, 76, 22);
+   margin-bottom: 0;
+}
+
+.recoverPass input{
+   font-size: 18px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-weight: 900;
+   text-align: center;
+   padding: 5px;
+   margin-top: 0;
+   background-color: transparent;
+   border: 3px solid  rgb(58, 76, 22);
+   width:93%;
+}

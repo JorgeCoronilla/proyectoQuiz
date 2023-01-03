@@ -1,4 +1,6 @@
 //imports
+
+
 const express = require('express');
 const app = express();
 
@@ -9,6 +11,11 @@ const cookieParser = require('cookie-parser');
 const router = require("./routes/routes");
 
 const PORT =  process.env.PORT;
+
+
+
+
+
 
 //middlewares
 app.use(cookieParser());
@@ -23,6 +30,8 @@ app.use("/", router);
 
 //Set upload folder as static
 app.use(express.static('uploads'));
+
+
 
 //
 app.listen(PORT || 3002, () => {

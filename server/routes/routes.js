@@ -19,16 +19,20 @@ router.post("/signin", Usercontroller.User.sigin)
 router.post("/recover-pass", Usercontroller.User.recover)
 router.post("/change-pass", Usercontroller.User.change_pass)
 router.post("/check", verifyToken, Usercontroller.User.checker)
-
+router.post("/check-email", Usercontroller.User.emailChecker)
 /*quizzes*/
 router.post("/quizzes", Usercontroller.User.getQuizzes)
 router.post("/quizzes/new", Usercontroller.User.insertQuizz)
-
+router.post("/quizz", Usercontroller.User.getQuizz)
+router.post("/quizz/update", Usercontroller.User.updateQuizz)
+router.delete("/quizz/delete",Usercontroller.User.deleteQuizz),
 
 /*questions*/
-router.post("/questions/",Usercontroller.User.getQuestions), 
+router.post("/questions",Usercontroller.User.getQuestions), 
 router.post("/questions/new",Usercontroller.User.insertQuestion), 
 router.post("/questions/update",Usercontroller.User.updateQuestion), 
+router.delete("/questions/delete",Usercontroller.User.deleteQuestion),
+router.post("/question/",Usercontroller.User.getQuestion),
 
 /*Guest*/
 router.get("/join", Guestcontroller.Guest.join)

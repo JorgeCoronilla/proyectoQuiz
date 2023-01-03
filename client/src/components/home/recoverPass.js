@@ -1,13 +1,14 @@
 import React from 'react'
-
-export const RecoverPass = () => {
+import { defaultFetch } from '../../helpers/defaultFetch';
+import { useNavigate } from 'react-router-dom'
+export const RecoverPass = ({setRecover}) => {
+  const navigate = useNavigate();
   const recover = async e => {
       e.preventDefault();
       var userEmail = { email: e.target.email.value };
       const res = await defaultFetch("http://localhost:3001/recover-pass", "POST", userEmail);
-      console.log(res);
-      if (res) { 
-          //navigate("/login")
+      if (res.mensaje) { 
+          setRecover(false);
         } else {
           //Mensaje de error
         }
@@ -16,14 +17,18 @@ export const RecoverPass = () => {
 
   return (
       <div>
-          <div className='registro'>
+          <div className='register-container'>
+            
               <form onSubmit={recover}>
-                  <h6>Ingresa el email que usaste para registrarte</h6>
-                  <p>Te enviaremos un correo con las instrucciones para cambiar tu contraseña</p>
-                  <input type="email" placeholder={email} required name="email"></input>
-                  <br />
+                  <h5>Ingresa el email que usaste para registrarte</h5>
+                  <h6>Te enviaremos un correo con las instrucciones para cambiar tu contraseña</h6>
+                  
+                  <input type="email" required name="email"></input>
+              
                  <button type='submit'>Enviar</button>
+              
               </form>
+             
           </div>
       </div>
   )

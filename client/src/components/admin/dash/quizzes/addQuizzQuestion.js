@@ -7,7 +7,7 @@ import { FinishQuizzCreation } from './finishQuizzCreation';
 
 
 export const AddQuizzQuestion = ({setLogo, logo}) => {
-    
+    const [refresh, setRefresh] = useState(false);
     const cookies = new Cookies();
     useEffect(() => {
         setRightAnswer("")
@@ -19,7 +19,7 @@ export const AddQuizzQuestion = ({setLogo, logo}) => {
             console.log(questions)
         })}
       
-    }, [])
+    }, [refresh])
     
     const { setDisplay, setquestion,
         question, quizzName,
@@ -59,7 +59,7 @@ export const AddQuizzQuestion = ({setLogo, logo}) => {
             </div>
             {questions &&
             <div>
-             <QuestionsCreated questions={questions}/>
+             <QuestionsCreated questions={questions}refresh={refresh} setRefresh={setRefresh}/>
              </div>
             }
 
