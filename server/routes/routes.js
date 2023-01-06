@@ -3,6 +3,7 @@ const router = require("express").Router();
 const Testcontroller = require('../controllers/test.controller')
 const Usercontroller = require('../controllers/user.controller')
 const Guestcontroller = require('../controllers/guest.controller');
+const Gamecontroller = require('../controllers/game.cotroller')
 const { verify } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
@@ -37,6 +38,16 @@ router.post("/question/",Usercontroller.User.getQuestion),
 /*Guest*/
 router.get("/join", Guestcontroller.Guest.join)
 
+/*Game*/
+router.post("/game/session", Gamecontroller.Game.startSession),
+router.post("/game/session/check", Gamecontroller.Game.checkSessionByQuizz),
+router.post("/game/session/check_byid", Gamecontroller.Game.checkSessionByID),
+router.post("/game/session/add_user", Gamecontroller.Game.addUser),
+router.post("/game/session/close", Gamecontroller.Game.closeSession),
+router.post("/game/session/start_guest", Gamecontroller.Game.startGuest),
+router.post("/game/session/add_answer", Gamecontroller.Game.addGuestAnswer),
+router.post("/game/session/question", Gamecontroller.Game.startQuestion),
+
 
 function verifyToken2(req, res, next) {
     const bearerHeader = req.headers['authorization']
@@ -55,9 +66,8 @@ function verifyToken(req, res, next) {
         req.token = tokenRaw;
         jwt.verify(req.token, process.env.JWT_SECRET_KEY, (error, authData) => {
             if (error) {
-                res.json({ validation: false, mensaje: error.name })
+                res.json({ error: error, mensaje: false })
             } else {
-                console.log("Da paso")
                 next();
             }
         })

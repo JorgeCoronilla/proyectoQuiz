@@ -1,23 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const guestSchema = new Schema({
-    user_id: {
-        type: String,
-        required: true
-    },
+const GuestSchema = new Schema({
+  
     name: {
         type: String,
         required: true
     },
-    country: {
+    quizzid: {
+        type: Number,
+        required: true,
+    },
+
+    session: {
         type: String,
         required: true,
     },
-    quizz_id: {
-        type: String,
+
+    totalQuestions: {
+        type: Number,
         required: true,
     },
+
+    answers: {
+        type: Array,
+        required: true,
+    },
+
+    state: {
+        type: Boolean,
+        required: true,
+    },
+
     date: {
         type: Date,
         required: true,
@@ -25,4 +39,5 @@ const guestSchema = new Schema({
     },
 })
 
-module.exports = mongoose.model('guess', guestSchema);
+module.exports = mongoose.model('guest', GuestSchema);
+

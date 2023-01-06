@@ -130,6 +130,7 @@ const User = {
     },
     checker: async (req, res) => {
         try {
+            console.log("llega")
             res.json({ mensaje: true })
         } catch (error) {
             res.json({ mensaje: false })
@@ -152,17 +153,20 @@ const User = {
                 res.json({ validation: false })
             } else { userName = user.user_name }
         })
-        try {
-            const quizzes = await QuizzModel.findAll({ where: { fk_user_name: userName } })
-            console.log(quizzes);
-            res.json(quizzes)
+        if (userName) {
+            try {
+                const quizzes = await QuizzModel.findAll({ where: { fk_user_name: userName } })
+                console.log(quizzes);
+                res.json(quizzes)
 
-        } catch (error) {
-            res.json({ mensaje: false })
+            } catch (error) {
+                res.json({ mensaje: false })
+            }
         }
+
     },
     getQuizz: async (req, res) => {
-        const {token, id} = req.body;
+        const { token, id } = req.body;
         let userName;
         jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
             if (error) {
@@ -170,14 +174,19 @@ const User = {
                 res.json({ validation: false })
             } else { userName = user.user_name }
         })
-        try {
-            const quizzes = await QuizzModel.findOne({ where: { id: id } })
-            console.log(quizzes);
-            res.json(quizzes)
 
-        } catch (error) {
-            res.json({ mensaje: false })
+        if (userName) {
+
+            try {
+                const quizzes = await QuizzModel.findOne({ where: { id: id } })
+                console.log(quizzes);
+                res.json(quizzes)
+
+            } catch (error) {
+                res.json({ mensaje: false })
+            }
         }
+
     },
     insertQuizz: async (req, res) => {
         const { name_, topic, level_, token } = req.body
@@ -246,7 +255,7 @@ const User = {
                 name_: name_,
                 topic: topic,
                 level_: level_,
-    
+
             }
             QuizzModel.update(newData, { where: { id: id } })
                 .then((data) => {
@@ -296,23 +305,30 @@ const User = {
     },
     getQuestions: async (req, res) => {
         const { token, quizz_id } = req.body;
-        jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
-            if (error) {
-                console.log(error);
-                res.json({ validation: false })
+        const verify = jwt.verify(token, process.env.JWT_SECRET_KEY)
+       
+        if (verify) {
+            try {
+          
+                const questions = await QuestionModel.findAll({ where: { quizz_id: quizz_id } });
+                if (questions.length) { res.json(questions)} else {
+                    res.json({ mensaje: "false" })
+                }
+               
+    
+            } catch (error) {
+                console.log(error)
+                res.json({ mensaje: "false" })
             }
-        })
-        try {
-            const questions = await QuestionModel.findAll({ where: { quizz_id: quizz_id } })
-            console.log(questions);
-            res.json(questions)
-
-        } catch (error) {
-            res.json({ mensaje: false })
+        } else {
+            res.json({ mensaje: "false" })
         }
+      
+  
+
     },
     getQuestion: async (req, res) => {
-        const {token, id} = req.body;
+        const { token, id } = req.body;
         let userName
         jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
             if (error) {
@@ -320,14 +336,18 @@ const User = {
                 res.json({ validation: false })
             } else { userName = user.user_name }
         })
-        try {
-            const question = await QuestionModel.findOne({ where: { id: id } })
-            console.log(question);
-            res.json(question)
 
-        } catch (error) {
-            res.json({ mensaje: false })
+        if (userName) {
+            try {
+                const question = await QuestionModel.findOne({ where: { id: id } })
+                console.log(question);
+                res.json(question)
+
+            } catch (error) {
+                res.json({ mensaje: false })
+            }
         }
+
     },
     updateQuestion: async (req, res) => {
         const { question, right_answer, wrong_answer1, wrong_answer2, wrong_answer3, id, token } = req.body

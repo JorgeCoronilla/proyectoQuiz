@@ -1,0 +1,37 @@
+.guestName{
+    margin: 0 40px 50px 40px;
+    font-family: 'Roboto Condensed', sans-serif;
+    border: 8px white dashed;
+    padding: 15px 0;
+}
+
+.guestName h3{
+        font-size: 40px;
+        text-align: center;
+        color: white;
+        margin-bottom: 20px;
+     }
+
+.guestName input{
+    font-size: 28px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    text-align: center;
+    padding: 5px;
+    background-color: transparent;
+    border: 5px solid  rgb(58, 76, 22);
+    width:80%;
+    margin: 10px 15px;
+}
+
+.waitingGuests{
+    font-size: 28px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    color:white;
+    margin: 100px 40px 50px 40px;
+    padding: 15px 0;
+}
+.waitingGuests{
+    text-align: center;
+}

@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import { UserDash } from '../components/admin/dash/userDash'
 import { Error404 } from '../components/Error404'
 import { MainQuizzRoom } from '../components/game/mainQuizzRoom'
-import { QuizzRoom } from '../components/game/quizzRoom'
 import { ChangePass } from '../components/home/changePass'
 import { Register } from '../components/home/register'
 import { Welcome } from '../components/home/welcome'
@@ -28,7 +27,6 @@ export const AppRoutes = () => {
         
         {/*Quizz for user*/}
         <Route path="/test" element={<MainQuizzRoom/>} />
-        <Route path="/test2" element={<QuizzRoom/>} />
       </Routes>
     </div>
   )

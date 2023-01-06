@@ -1,32 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const quizzSchema = new Schema({
-    user_id: {
+const QuizzSchema = new Schema({
+    
+    quizzid: {
         type: String,
         required: true
     },
-    name: {
-        type: String,
-        required: true
+    total_questions: {
+        type: Number,
+        required: true,
     },
-    questions_id: {
+    guests: {
         type: Array,
         required: true,
     },
-    level: {
-        type: String,
+    state: {
+        type: Boolean,
         required: true,
     },
-    topic: {
-        type: String,
-        required: true,
-    },
-    creation_date: {
+    date: {
         type: Date,
         required: true,
         default: Date.now,
     },
 })
 
-module.exports = mongoose.model('quizz', quizzSchema);
+module.exports = mongoose.model('quizz', QuizzSchema);

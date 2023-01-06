@@ -1,36 +1,41 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const questionSchema = new Schema({
-    user_id: {
-        type: String,
-        required: true
-    },
-    question: {
-        type: String,
-        required: true
-    },
-    right_answer: {
+const QuestionSchema = new Schema({
+    
+    session: {
         type: String,
         required: true,
     },
-    wrong_answers: {
-        type: Array,
+    questionid:{
+        type: Number,
         required: true,
     },
-    level: {
-        type: String,
+
+    quizzid: {
+        type: Number,
         required: true,
     },
-    topic: {
-        type: String,
+       right_replies: {
+        type: Number,
         required: true,
     },
-    creation_date: {
-        type: Date,
+    wrong1_replies: {
+        type: Number,
         required: true,
-        default: Date.now,
     },
+    wrong2_replies: {
+        type: Number,
+        required: true,
+    },
+    wrong3_replies: {
+        type: Number,
+        required: true,
+    },
+    totalreplies:{
+        type: Number,
+        required: true,
+    }
 })
 
-module.exports = mongoose.model('question', questionSchema);
+module.exports = mongoose.model('question', QuestionSchema);

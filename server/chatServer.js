@@ -1,4 +1,5 @@
 const express = require("express");
+
 const SocketServer = require('socket.io').Server;
 const http = require('http');
 const cors = require("cors");
@@ -35,31 +36,33 @@ io.on('connection', (socket) => {
     socket.on('first_conn', (user_data) => {
         console.log(socket.id)
         console.log(user_data)
-        
+        socket.broadcast.emit('first_conn', user_data)
     });
 
     socket.on('join', (room) => {
         console.log(`$Socket ${socket.id} joining --${room}--`);
         socket.join(room);
+        console.log("rooms", socket.rooms)
      });
 
-    socket.on('answers', (answer) => {
-      
-        console.log(answer)
-        socket.broadcast.emit('answers', answer)
+     socket.on('display', (state) => {
+        console.log(state);
+        socket.to(state.room).emit('display', state.state);
     })
 
 
-   /* socket.on('join', (room) => {
-        console.log(`Socket ${socket.id} joining ${room}`);
-        socket.join(room);
-     });
-    socket.on('chat', (data) => {
-        const { message, room } = data;
-        console.log(`msg: ${message}, room: ${room}`);
-        io.to(room).emit('chat', message);
-        socket.broadcast.emit('chat', message)
-    })*/
+    socket.on('guestReply', (reply) => {
+        console.log(reply)
+        socket.to(reply.room).emit('guestReply', reply);
+    })
+
+    socket.on('answers', (answer) => {
+        console.log(answer)
+        socket.to(answer.room).emit('answers', answer.answers);
+        //socket.broadcast.emit('answers', answer)
+    })
+
+  
 })
 
 server.listen(process.env.PORT2, () => console.log(`Game server in ports ${process.env.PORT2}`));

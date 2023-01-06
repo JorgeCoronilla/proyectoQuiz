@@ -26,11 +26,3 @@ export const Welcome = () => {
         </div>
     )
 }
-/*
- if (display === "login") {
-        return(<Login/>)
-    } 
-
-    if (display === "signin") {
-        return(<SignIn/>)
-    } */
