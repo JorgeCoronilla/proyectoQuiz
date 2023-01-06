@@ -7,6 +7,9 @@ import { CreateGameContext } from '../../providers/createGameProvider';
 import { Logo } from '../logo';
 import { AdminQuizz } from './adminQuizz';
 import { GuestQuizz } from './guestQuizz';
+import io from 'socket.io-client';
+
+const socket = io.connect('http://localhost:4000');
 
 export const MainQuizzRoom = () => {
     const cookies = new Cookies();
@@ -17,11 +20,27 @@ export const MainQuizzRoom = () => {
     const quizzId = parseInt(localStorage.getItem('currentQuiz'))
     const [display, setDisplay] = useState("start");
     const [userList, setUserList] = useState(["list"]);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [currentAnswer1, setCurrentAnswer1] = useState(0);
-    const [currentAnswer2, setCurrentAnswer2] = useState(0);
-    const [currentAnswer3, setCurrentAnswer3] = useState(0);
-    const [currentAnswer4, setCurrentAnswer4] = useState(0);
+    const [currentQ, setCurrentQ] = useState(0);
+    const [cA1, setcA1] = useState(0);
+    const [cA2, setcA2] = useState(0);
+    const [cA3, setcA3] = useState(0);
+    const [cA4, setcA4] = useState(0);
+    const [chA1, setchA1] = useState(5);
+    const [chA2, setchA2] = useState(5);
+    const [chA3, setchA3] = useState(5);
+    const [chA4, setchA4] = useState(5);
+    const [hB1, sethB1] = useState(1);
+    const [hB2, sethB2] = useState(2);
+    const [hB3, sethB3] = useState(3);
+    const [hB4, sethB4] = useState(4);
+    const [rightN, setrightN] = useState();
+    const [nextFunct, setNextFunct] = useState(0);
+    const [startTime, setstartTime] = useState(0);
+    const [timeName, setTimeName] = useState([]);
+    const [timeOfReply, setTimeOfReply] = useState([]);
+    const [ points, setPoints] = useState([]);
+    const [ lastQ, setLastQ] = useState([]);
+
     const navigate = useNavigate();
 
 
@@ -68,18 +87,21 @@ export const MainQuizzRoom = () => {
     return (
         <CreateGameContext.Provider
             value={{
+                socket,
                 quizz, questions,
                 display, setDisplay,
                 userList, setUserList,
-                currentQuestion, setCurrentQuestion,
-                currentAnswer1, setCurrentAnswer1,
-                currentAnswer2, setCurrentAnswer2,
-                currentAnswer3, setCurrentAnswer3,
-                currentAnswer4, setCurrentAnswer4
+                currentQ, setCurrentQ,
+                cA1, setcA1, cA2, setcA2, cA3, setcA3, cA4, setcA4,
+                chA1, setchA1, chA2, setchA2, chA3, setchA3, chA4, setchA4,
+                hB1, sethB1, hB2, sethB2, hB3, sethB3, hB4, sethB4, rightN, setrightN,
+                nextFunct, setNextFunct, startTime, setstartTime,
+                timeName, setTimeName, timeOfReply, setTimeOfReply,
+                points, setPoints, lastQ, setLastQ
             }}>
             <div>
                 <Logo />
-                {userOk ? <AdminQuizz /> : <GuestQuizz />}
+                {userOk ? <AdminQuizz socket={socket}/> : <GuestQuizz socket={socket}/>}
             </div>
         </CreateGameContext.Provider>
     )

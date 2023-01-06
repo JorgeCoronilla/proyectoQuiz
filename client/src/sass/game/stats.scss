@@ -24,32 +24,58 @@
     display: flex;
     flex-direction: row;
     align-items: flex-end;
+    height: 180px;
 }
 
-.bar1{
+
+#bar1{
     border: 1px solid white;
-    /*height: 100px;*/
     width: 15%;
     margin: 0 15px;
 }
 
-.bar2{
+#bar2{
     border: 1px solid white;
-    /*height: 50px;*/
     width: 15%;
     margin: 0 15px;
 }
 
-.bar3{
+#bar3{
     border: 1px solid white;
-    /*height: 70px;*/
     width: 15%;
     margin: 0 15px;
 }
 
-.bar4{
+#bar4{
     border: 1px solid white;
-    /*height: 40px;*/
+    width: 15%;
+    margin: 0 15px;
+}
+
+#bar11{
+    border: 1px solid white;
+    width: 15%;
+    background-color: white;
+    margin: 0 15px;
+}
+
+#bar22{
+    border: 1px solid white;
+    width: 15%;
+    background-color: white;
+    margin: 0 15px;
+}
+
+#bar33{
+    border: 1px solid white;
+    width: 15%;
+    background-color: white;
+    margin: 0 15px;
+}
+
+#bar44{
+    border: 1px solid white;
+    background-color: white;
     width: 15%;
     margin: 0 15px;
 }

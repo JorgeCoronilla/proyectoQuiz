@@ -35,3 +35,22 @@
 .waitingGuests{
     text-align: center;
 }
+
+.guestStart{
+    border: 1px solid rgb(255, 255, 255);
+    width: fit-content;
+    margin: 15px auto;
+}
+
+.guestStartBtn{
+     background-color: transparent;
+    border: 5px solid white;
+    font-size: 35px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    color: white;
+    padding: 5px 10px;
+}
+.guestStartInput{
+    padding:15px
+}

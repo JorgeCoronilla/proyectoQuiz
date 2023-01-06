@@ -59,7 +59,6 @@ io.on('connection', (socket) => {
     socket.on('answers', (answer) => {
         console.log(answer)
         socket.to(answer.room).emit('answers', answer.answers);
-        //socket.broadcast.emit('answers', answer)
     })
 
   
