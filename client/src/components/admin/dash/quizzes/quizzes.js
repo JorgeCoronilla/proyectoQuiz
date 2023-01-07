@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
+import { Logo } from '../../../logo';
 import { AddAnswers } from './addAnswers';
 import { AddQuizz } from './addQuizz'
 import { AddQuizzQuestion } from './addQuizzQuestion';
 import { FinishQuizzCreation } from './finishQuizzCreation';
 import { QuizzesList } from './quizzesList'
 
-export const Quizzes = ({setLogo, logo}) => {
+export const Quizzes = ({logo, setLogo}) => {
   const [display, setDisplay] = useState("main");
   const [quizzName, setQuizzName] = useState("none")
   const [question, setquestion] = useState("");
   const [rightAnswer, setRightAnswer] = useState("");
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [questionsArray, setQuestionsArray] = useState([]);
-  const [currentQuizz, setCurrentQuizz] = useState([]);
   const [questions, setQuestions] = useState();
   const [showInput, setShowInput] = useState(false);
+
   return (
     <CreateQuizzContext.Provider
       value={{
@@ -26,10 +27,11 @@ export const Quizzes = ({setLogo, logo}) => {
         quizzName, setQuizzName,
         questionsArray, setQuestionsArray,
         questions, setQuestions,
-        showInput, setShowInput
+        showInput, setShowInput,
+        logo, setLogo
       }}>
-
-      <div className='quizzContainer'>
+       
+        <div >
         {display === "main" &&
           <div>
             <QuizzesList setLogo={setLogo} logo={logo}/>
@@ -51,6 +53,8 @@ export const Quizzes = ({setLogo, logo}) => {
 
 
       </div>
+      
+    
     </CreateQuizzContext.Provider>
   )
 }

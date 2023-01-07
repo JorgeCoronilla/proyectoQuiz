@@ -76,6 +76,30 @@ const User = {
 
     },
 
+    update: async (req, res) => {
+       
+        try {
+             
+            let newData = {
+                user_name: req.body.user_name,
+                name_: req.body.name_,
+                country: req.body.country,
+                email: req.body.email,
+                type_education: req.body.type_education,
+                institution: req.body.institution
+            }
+            let user = await UserModel.update( newData , { where: { email: req.body.email } })
+            console.log(user)
+            res.json({ mensaje: true })
+           
+        } catch (error) {
+            res.status(500)
+            res.send(error.message)
+        }
+           
+
+    },
+
     sigin: async (req, res) => {
 
         try {
@@ -306,16 +330,16 @@ const User = {
     getQuestions: async (req, res) => {
         const { token, quizz_id } = req.body;
         const verify = jwt.verify(token, process.env.JWT_SECRET_KEY)
-       
+
         if (verify) {
             try {
-          
+
                 const questions = await QuestionModel.findAll({ where: { quizz_id: quizz_id } });
-                if (questions.length) { res.json(questions)} else {
+                if (questions.length) { res.json(questions) } else {
                     res.json({ mensaje: "false" })
                 }
-               
-    
+
+
             } catch (error) {
                 console.log(error)
                 res.json({ mensaje: "false" })
@@ -323,8 +347,8 @@ const User = {
         } else {
             res.json({ mensaje: "false" })
         }
-      
-  
+
+
 
     },
     getQuestion: async (req, res) => {

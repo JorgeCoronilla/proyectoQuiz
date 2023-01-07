@@ -6,7 +6,7 @@ import { defaultFetch } from '../../../../helpers/defaultFetch';
 import { FinishQuizzCreation } from './finishQuizzCreation';
 
 
-export const AddQuizzQuestion = ({setLogo, logo}) => {
+export const AddQuizzQuestion = () => {
     const [refresh, setRefresh] = useState(false);
     const cookies = new Cookies();
     useEffect(() => {
@@ -26,11 +26,13 @@ export const AddQuizzQuestion = ({setLogo, logo}) => {
         questions, setQuestions,
         questionsArray, setQuestionsArray,
         setRightAnswer,
-        showInput, setShowInput
+        showInput, setShowInput,
+        setLogo, logo
     } = useContext(CreateQuizzContext);
 
     const add = () => {
-        setShowInput(!showInput)
+        setShowInput(!showInput);
+        setLogo(!logo)
     }
 
     const addQuestion = e => {

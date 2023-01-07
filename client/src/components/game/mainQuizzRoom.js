@@ -90,6 +90,7 @@ export const MainQuizzRoom = () => {
             value={{
                 socket,
                 quizz, questions,
+                setQuestions,
                 display, setDisplay,
                 userList, setUserList,
                 currentQ, setCurrentQ,

@@ -1,21 +1,16 @@
 
 const router = require("express").Router();
-const Testcontroller = require('../controllers/test.controller')
 const Usercontroller = require('../controllers/user.controller')
 const Guestcontroller = require('../controllers/guest.controller');
 const Gamecontroller = require('../controllers/game.cotroller')
-const { verify } = require("jsonwebtoken");
-const jwt = require("jsonwebtoken");
-const cors = require("cors");
 
-/*Test*/
-router.get("/", Testcontroller.test.test1);
-router.get("/test", verifyToken, Testcontroller.test.test2)
+const jwt = require("jsonwebtoken");
 
 
 /*Home*/
 router.post("/login", Usercontroller.User.login)
 router.post("/register", Usercontroller.User.register)
+router.post("/update", Usercontroller.User.update)
 router.post("/signin", Usercontroller.User.sigin)
 router.post("/recover-pass", Usercontroller.User.recover)
 router.post("/change-pass", Usercontroller.User.change_pass)

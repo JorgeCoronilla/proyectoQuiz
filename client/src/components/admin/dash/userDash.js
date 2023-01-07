@@ -6,6 +6,7 @@ import { MainDash } from './mainDash';
 import { Quizzes } from './quizzes/quizzes';
 import { UserAccount } from './account/userAccount';
 import { NavbarQuizzes } from './quizzes/navbarQuizzes';
+
 export const UserDash = () => {
     const [userOk, setUserOk] = useState();
     const [display, setDisplay] = useState("main");
@@ -28,10 +29,11 @@ export const UserDash = () => {
      if (userOk){ return (
         <div>
              {display === "quizzes" && <NavbarQuizzes setDisplay={setDisplay} />}
-            {logo && <Logo/>}
-            {display === "main" && <MainDash setDisplay={setDisplay} />}
-            {display === "quizzes" && <Quizzes setDisplay={setDisplay} logo={logo} setLogo={setLogo} />}
-            {display === "account" && <UserAccount setDisplay={setDisplay} logo={logo} setLogo={setLogo} />}
+             {logo && <Logo/>}
+            {display === "main" && <MainDash setDisplay={setDisplay} logo={logo} setLogo={setLogo} />}
+            {display === "quizzes" && <Quizzes setDisplay={setDisplay} logo={logo} setLogo={setLogo}/>}
+            {display === "account" && <UserAccount setDisplay={setDisplay} logo={logo} setLogo={setLogo}/>}
             </div>
       ) }
 }
+// 

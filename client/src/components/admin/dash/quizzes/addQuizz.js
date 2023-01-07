@@ -2,9 +2,9 @@ import React, { useContext, useState,useEffect } from 'react'
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { AddQuizzName } from './addQuizzName';
 import { AddQuizzQuestion } from './addQuizzQuestion';
-export const AddQuizz = ({setLogo, logo}) => {
+export const AddQuizz = () => {
  
-  const { quizzName, showInput, setShowInput } = useContext(CreateQuizzContext);
+  const { quizzName, showInput, setShowInput, setLogo, logo } = useContext(CreateQuizzContext);
  
   const add = () => {
     setShowInput(!showInput)

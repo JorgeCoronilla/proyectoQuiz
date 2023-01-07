@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { Logo } from '../logo';
+
 export const Register = () => {
   const [email, setEmail] = useState();
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ export const Register = () => {
 
   const insertUser = async e => {
     e.preventDefault();
-console.log("Entra")
     if (e.target.pass.value === e.target.confirmPass.value) {
 
       var newUser = {
@@ -43,7 +43,7 @@ console.log("Entra")
         console.log("Hay un error")
       }
     } else {
-      console.log("LA contraseña no coincide")
+      console.log("La contraseña no coincide")
     }
   }
 

@@ -26,7 +26,7 @@ export const AppRoutes = () => {
         {/*Quizz for guests*/}
         
         {/*Quizz for user*/}
-        <Route path="/test" element={<MainQuizzRoom/>} />
+        <Route path="/quizz" element={<MainQuizzRoom/>} />
       </Routes>
     </div>
   )

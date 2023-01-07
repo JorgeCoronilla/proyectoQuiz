@@ -4,7 +4,7 @@
     left:0;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     background-color: rgba(0, 0, 0, 0.178);
     height: 40px;
     padding: 10px 15px 5px;
@@ -28,6 +28,5 @@
     width: fit-content;
     text-align: center;
     color: rgb(255, 255, 255);
-    border: 2px solid rgb(255, 255, 255);
     padding: 5px 5px;
  }

@@ -12,7 +12,7 @@ export const PinEnter = () => {
         .then ((data, error)=> {
           localStorage.setItem("sessionID",data.id );
           console.log(data.id)
-          navigate("/test");
+          navigate("/quizz");
         })
         localStorage.setItem("currentQuiz", JSON.stringify(e.target.pin.value));
     }

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider'
 
-export const FinishQuizzCreation = ({logo, setLogo}) => {
-    const {setDisplay, setQuizzName, setShowInput, setQuestionsArray} = useContext(CreateQuizzContext)
+export const FinishQuizzCreation = () => {
+    const {setDisplay, setQuizzName, setShowInput, setQuestionsArray, setLogo} = useContext(CreateQuizzContext)
     const finish = () => {
         setDisplay("main");
         setQuizzName("none");

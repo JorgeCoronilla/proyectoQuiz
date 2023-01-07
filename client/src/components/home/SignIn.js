@@ -21,7 +21,7 @@ export const SignIn = ({setDisplay}) => {
         <div>
             <div className='formContainer'>
                 <form onSubmit={sigInSub}>
-                    <h6>Regístrate para obtener tu cuenta</h6>
+                    <h5>Regístrate para obtener tu cuenta</h5>
                     <p>A continuación confirme su correo electrónico para finalizar el registro.</p>
                     <input type="email" placeholder="email" required name="email"></input>
                     <div>

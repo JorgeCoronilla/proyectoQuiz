@@ -8,6 +8,8 @@ const Game = {
         const { quizzid, total_questions, guests, state } = req.body
         let session = {quizzid, total_questions, guests, state}
         try {
+
+
             
             let newSession = new QuizzSession(session)
             newSession.save((err, session)=>{
