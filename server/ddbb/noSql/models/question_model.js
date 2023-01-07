@@ -17,23 +17,31 @@ const QuestionSchema = new Schema({
         required: true,
     },
        right_replies: {
-        type: Number,
+        type: Array,
         required: true,
     },
     wrong1_replies: {
-        type: Number,
+        type: Array,
         required: true,
     },
     wrong2_replies: {
-        type: Number,
+        type: Array,
         required: true,
     },
     wrong3_replies: {
-        type: Number,
+        type: Array,
         required: true,
     },
-    totalreplies:{
-        type: Number,
+    users:{
+        type: Array,
+        required: true,
+    },
+    times:{
+        type: Array,
+        required: true,
+    },
+    points:{
+        type: Array,
         required: true,
     }
 })

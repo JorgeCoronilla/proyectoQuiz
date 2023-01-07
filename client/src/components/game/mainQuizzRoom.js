@@ -45,6 +45,7 @@ export const MainQuizzRoom = () => {
 
 
     useEffect(() => {
+        localStorage.setItem("currentQuestion", "0")
         if (cookieCheck) {
             defaultFetch("http://localhost:3001/check", "POST",
                 { token: cookieCheck })

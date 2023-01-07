@@ -1,25 +1,39 @@
 .answeredgif {
- margin: 30px 20px;
- font-family: 'Roboto Condensed', sans-serif;
+    margin: 30px 20px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-.answeredgif h3{
-color: white;
-font-size: 50px;
-text-align: center;
+.answeredgif h3 {
+    color: white;
+    font-size: 50px;
+    text-align: center;
 }
 
 
-.answeredgif h6{
+.answeredgif h6 {
     color: rgb(57, 73, 27);
     font-size: 30px;
     text-align: center;
     margin-top: 30px;
-    }
+}
+
 .answeredgif img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 80px;
     width: 40%;
+}
+
+.answeredgif button {
+    font-size: 28px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    text-align: center;
+    padding: 5px;
+    margin-top: 20px;
+    color: rgb(48, 66, 15);
+    background-color: transparent;
+    border: solid 3px rgb(48, 66, 15);
+    width: 100%;
 }

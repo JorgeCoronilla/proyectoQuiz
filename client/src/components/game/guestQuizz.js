@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
-//import io from 'socket.io-client';
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { CreateGameContext } from '../../providers/createGameProvider';
-import { AnswerChart } from '../guest/answerChart';
-import { Answered } from '../guest/answered';
-import { WaitingGuests } from '../guest/waitingGuests';
-//const socket = io.connect('http://localhost:4000');
+import { FinalScreenGuest } from './guest/finalScreenGuest';
+import { WaitingGuests} from './guest/waitingGuests'
+import {Answered} from './guest/answered'
+import {AnswerChart} from './guest/answerChart'
 
 export const GuestQuizz = () => {
   const [display, setDisplay] = useState();
   const [answers, setAnswers] = useState();
   const [screen, setScreen] = useState(true);
   const [user, setUser] = useState()
-  const { socket } = useContext(CreateGameContext);
+  const { socket, startTime, setstartTime } = useContext(CreateGameContext);
+  let replyTime;
 
 
   useEffect(() => {
@@ -23,10 +23,6 @@ export const GuestQuizz = () => {
     socket.on('answers', (answers) => {
       setAnswers(answers);
     })
-    /*
-    socket.on('guestReply', (reply) => {
-  
-    })*/
 
   }, [display])
 
@@ -38,12 +34,12 @@ export const GuestQuizz = () => {
     let id;
 
     defaultFetch(`http://localhost:3001/game/session/start_guest`, "post",
-    {quizzid: room, name: e.target.name.value, session,totalQuestions: 0, answers: [], state: true})
-    .then((res) => {
-      id= res.id;
-      localStorage.setItem('guestID', res.id)
+      { quizzid: room, name: e.target.name.value, session, totalQuestions: 0, answers: [], times: [], points: 0, state: true })
+      .then((res) => {
+        id = res.id;
+        localStorage.setItem('guestID', res.id)
 
-    });
+      });
 
 
     var user_data = {
@@ -61,8 +57,8 @@ export const GuestQuizz = () => {
     setScreen(false)
   }
 
- 
-  
+
+
 
   return (
 
@@ -73,7 +69,7 @@ export const GuestQuizz = () => {
           <form onSubmit={sendName}>
             <h3>Tu nombre</h3>
             <div className='guestStartInput'><input name='name'></input></div>
-            
+
             <div className='guestStart'>
               <button className="guestStartBtn" type='submit'>Ok</button>
             </div>
@@ -86,11 +82,17 @@ export const GuestQuizz = () => {
       }
 
       {display === "playing" &&
-          <AnswerChart socket={socket} answers={answers} user={user}/>
+        <AnswerChart answers={answers} user={user} replyTime={replyTime} setDisplay={setDisplay} />
       }
       {display === "answered" &&
-      
-        <Answered/>
+
+        <Answered />
+      }
+
+      {display === "final" &&
+        <div>
+          <FinalScreenGuest />
+        </div>
       }
     </div>
   )

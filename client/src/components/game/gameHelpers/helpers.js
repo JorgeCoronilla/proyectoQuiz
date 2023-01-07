@@ -19,3 +19,9 @@ export const checkArray = (timeName, reply) => {
     }
     })
 }
+
+export const timeNow=() => {
+    const d = new Date();
+    let time = d.getTime();
+    return time
+}

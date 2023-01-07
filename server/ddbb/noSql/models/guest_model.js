@@ -5,7 +5,7 @@ const GuestSchema = new Schema({
   
     name: {
         type: String,
-        required: true
+        required: true,
     },
     quizzid: {
         type: Number,
@@ -24,6 +24,16 @@ const GuestSchema = new Schema({
 
     answers: {
         type: Array,
+        required: true,
+    },
+
+    times: {
+        type: Array,
+        required: true,
+    },
+
+    points: {
+        type: Number,
         required: true,
     },
 

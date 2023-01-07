@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-//import io from 'socket.io-client';
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { CreateGameContext } from '../../providers/createGameProvider';
 import { FinalScreen } from './admin/finalScreen';
@@ -10,9 +9,8 @@ import { QuizzIntro } from './admin/quizzIntro';
 import { Scores } from './admin/scores';
 import { TimeStats } from './admin/timeStats';
 import { UserList } from './admin/userList';
-import { checkArray, checkReply, mixAnswers } from './gameHelpers/helpers';
+import { checkArray, checkReply, mixAnswers, timeNow } from './gameHelpers/helpers';
 
-//const socket = io.connect('http://localhost:4000');
 
 export const AdminQuizz = () => {
 
@@ -33,31 +31,39 @@ export const AdminQuizz = () => {
     const [refresh, setRefresh] = useState(true);
     const [newUser, setNewUser] = useState();
     const [answers, setAnswers] = useState();
-
-    var startQTime
+    let fecha;
+    var startQTime, previousName = "None", previousTime = 1673085959576;
 
     const [sessionID, setSessionID] = useState(localStorage.getItem('sessionID'));
-
+    
     ///De aquí para abajo
 
 
     useEffect(() => {
         if (currentQ > 0) {
-            if (currentQ === (questions.length-1)) {
+            localStorage.setItem("currentQuestion", currentQ)
+            if (currentQ === (questions.length)) {
                 setDisplay("final");
-            } else { setcA1(0); setcA2(0); setcA3(0); setcA4(0);
+            } else {
+                setcA1(0); setcA2(0); setcA3(0); setcA4(0);
                 setchA1(5); setchA2(5); setchA3(5); setchA4(5);
                 sethB1(1); sethB2(2); sethB3(3); sethB4(4);
                 setTimeOfReply([]); setPoints([]); setTimeName([])
-                startQTime = Date.now();
+                startQTime = 0;
+                startQTime = timeNow();
+                setstartTime(startQTime)
                 const wAnswers = mixAnswers(questions, currentQ);
                 setAnswers(wAnswers)
                 setDisplay("playing");
                 const room = JSON.stringify(quizz.id);
                 socket.emit('display', { room: room, state: "playing" })
-                socket.emit('answers', { room: room, answers: wAnswers })}
+                socket.emit('answers', { room: room, answers: wAnswers })
+                defaultFetch(`http://localhost:3001/game/session/question`, "post",
+                { session: sessionID, quizzid:quizz.id , questionid:questions[currentQ].id,right_replies:[], 
+                    wrong1_replies:[], wrong2_replies:[], wrong3_replies:[],users:[],times:[],points:[] })
+            }
         }
-       
+
     }, [currentQ])
 
     useEffect(() => {
@@ -82,6 +88,7 @@ export const AdminQuizz = () => {
         socket.emit('first_conn', user_data);
         socket.on('first_conn', (user_data) => {
             setNewUser(user_data);
+            localStorage.setItem(user_data.user, "0")
         })
 
         setDisplay("waiting")
@@ -102,8 +109,15 @@ export const AdminQuizz = () => {
     }
 
     const start = () => {
+
+        defaultFetch(`http://localhost:3001/game/session/question`, "post",
+        { session: sessionID, quizzid:quizz.id , questionid:questions[currentQ].id,right_replies:[], 
+            wrong1_replies:[], wrong2_replies:[], wrong3_replies:[],users:[],times:[],points:[] })
+
         setLastQ(questions.length);
-        startQTime = Date.now();
+        console.log(questions)
+        startQTime = timeNow();
+        setstartTime(startQTime)
         const wAnswers = mixAnswers(questions, currentQ);
         setAnswers(wAnswers)
         setDisplay("playing");
@@ -111,13 +125,55 @@ export const AdminQuizz = () => {
         socket.emit('display', { room: room, state: "playing" })
         socket.emit('answers', { room: room, answers: wAnswers })
         socket.on('guestReply', (reply) => {
-            //const right = questions[currentQ].right_answer;
             manageAnswer(reply)
         })
     }
 
     const manageAnswer = (reply) => {
-        let usertime = (reply.time - startQTime);
+        let usertime;
+        if (((reply.time - previousTime) < 5) && (previousName === reply.user.user)) {
+            console.log("No Debería pasar")
+        } else {
+            let q = parseInt(localStorage.getItem("currentQuestion"))
+            let answer;
+            if (reply) {
+                let cQ = localStorage.getItem("currentQuestion");
+                if (cQ==="0") {
+                    usertime = (reply.time - startQTime);
+                } else {
+                    let dateNew = JSON.parse(localStorage.getItem('date'))
+                    usertime = (reply.time - dateNew);
+                }
+               
+
+                setTimeOfReply((timeOfReply) => ([...timeOfReply, usertime]));
+                setTimeName((timeName) => ([...timeName, reply.user.user]));
+                if (checkReply(reply, questions[q].right_answer)) {
+                    answer = 1;
+                    let calPoints = Math.floor(((15000 - usertime)/10))
+                    let previous = JSON.parse(localStorage.getItem(reply.user.user))
+                    previous = calPoints + previous;
+                    localStorage.setItem(reply.user.user, JSON.stringify(previous))
+                    
+                    defaultFetch(`http://localhost:3001/game/session/question/adding_answers`, "post",
+                    {questionid:questions[q].id, user: reply.user.user,time: usertime ,points:(answer)})
+                    setPoints((points) => ([...points, (previous)]));
+                } else {
+                    answer = 0;
+                    let previous = JSON.parse(localStorage.getItem(reply.user.user))
+                    defaultFetch(`http://localhost:3001/game/session/question/adding_answers`, "post",
+                    {questionid:questions[q].id, user: reply.user.user,time: usertime ,points:0})
+                    setPoints((points) => ([...points, previous]))
+                }
+
+                defaultFetch(`http://localhost:3001/game/session/add_answer`, "post",
+                    { _id: reply.idUser, answer, time: usertime })
+                   
+            }
+
+        }
+        previousTime = reply.time
+        previousName = reply.user.user
 
         if (reply.answerID === "0") {
             setcA1((cA1) => cA1 + 1);
@@ -135,38 +191,8 @@ export const AdminQuizz = () => {
             setcA4((cA4) => cA4 + 1);
             setchA4((chA4) => chA4 + 15);
         }
-       
-       
-        let answer;
-        if (reply) {
-            let usertime = (reply.time - startQTime);
-            let insertOk = true;
 
-            timeName.map((timeNa, index) => {
-                console.log("Entra en map")
-                if (timeNa === reply.user.user) {
-                    insertOk = false
-                    console.log("Ya está " + timeNa)
-                    console.log("Entra " + reply.user.user)
-                }
-            })
-            if (insertOk && points) {
-                setTimeOfReply((timeOfReply) => ([...timeOfReply, usertime]));
-                setTimeName((timeName) => ([...timeName, reply.user.user]));
-                
-                if (checkReply(reply, questions[currentQ].right_answer)) {
-                    answer = 1;
-                    setPoints((points) => ([...points, (11000 - usertime)]));
-                } else {
-                    answer = 0;
-                    setPoints((points) => ([...points, 0]))
-                }
-                defaultFetch(`http://localhost:3001/game/session/add_answer`, "post",
-                    { _id: reply.idUser, answer, time: usertime })
-            }
-        }
     }
-
 
     return (
         <div>
@@ -192,7 +218,7 @@ export const AdminQuizz = () => {
             }
             {display === "playing" &&
                 <div>
-                    <QuestionNavBar socket={socket}/>
+                    <QuestionNavBar socket={socket} fecha={fecha}/>
                     <div className='questionContainer'>
                         <h4>{questions[currentQ].question}</h4>
                     </div>
@@ -204,21 +230,21 @@ export const AdminQuizz = () => {
 
             {display === "stats" &&
                 <div>
-                    <QuestionNavBar />
+                    <QuestionNavBar fecha={fecha}/>
                     <TimeStats />
                 </div>
             }
 
             {display === "points" &&
                 <div>
-                    <QuestionNavBar />
+                    <QuestionNavBar fecha={fecha}/>
                     <Scores />
                 </div>
             }
 
             {display === "final" &&
                 <div>
-                    <FinalScreen/>
+                    <FinalScreen />
                 </div>
             }
         </div>

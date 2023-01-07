@@ -1,5 +1,5 @@
 import React from 'react'
-import answeredgif from '../../media/answeredgif.gif'
+import answeredgif from '../../../media/answeredgif.gif'
 export const Answered = () => {
   return (
     <div className='answeredgif'>

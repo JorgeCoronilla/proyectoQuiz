@@ -108,8 +108,8 @@ const Game = {
     },
 
     startGuest: async (req, res) => {
-        const { quizzid, name, session,totalQuestions, answers, state } = req.body
-        let guest = {quizzid, name, session,totalQuestions, answers, state}
+        const { quizzid, name, session,totalQuestions, answers, times, points, state } = req.body
+        let guest = {quizzid, name, session,totalQuestions, answers, times, points, state}
         try {
             let newGuest = new Guest(guest)
             newGuest.save((err, guest)=>{
@@ -125,9 +125,9 @@ const Game = {
     },
 
     addGuestAnswer: async (req, res) => {
-        const { _id, answer } = req.body
+        const { _id, answer, time } = req.body
         try {
-            Guest.findByIdAndUpdate({_id},{ $push: { answers: answer } }, function(err, result){
+            Guest.findByIdAndUpdate({_id},{ $push: { answers: answer }, $push: { times: time } }, function(err, result){
                 if(err){
                     res.json(false)
                     console.log(err)
@@ -143,8 +143,8 @@ const Game = {
     },
 
     startQuestion: async (req, res) => {
-        const { session, quizzid, questionid,right_replies, wrong1_replies, wrong2_replies, wrong3_replies,totalreplies } = req.body
-        let question = {session, quizzid,questionid, right_replies,wrong1_replies, wrong2_replies, wrong3_replies, totalreplies}
+        const { session, quizzid,questionid, right_replies,wrong1_replies, wrong2_replies, wrong3_replies, users, times, points } = req.body
+        let question = {session, quizzid,questionid, right_replies,wrong1_replies, wrong2_replies, wrong3_replies, users, times, points}
         try {
             let newQuestion = new Question(question)
             newQuestion.save((err, guest)=>{
@@ -158,6 +158,48 @@ const Game = {
             res.json(false)
         }
     },
+    addGuestAnswerInQuestion: async (req, res) => {
+        const { questionid, user,time,points } = req.body
+        try {
+            Question.findOneAndUpdate({questionid},{ $push: { users: user, times: time, points } }, function(err, result){
+                if(err){
+                    res.json(false)
+                    console.log(err)
+                }
+                else{
+                    res.json(true)
+                    console.log(result)
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            res.json(false)
+        }
+    },
+
+    getQuestionByQID: async (req, res) => {
+        const { questionid, session } = req.body
+        try {
+            Question.findOne({ questionid, session}, function(err, question){
+                if(err){
+                    res.json({mensaje:false})
+                    console.log(err)
+                }
+                else{
+                    if(question) {
+                        res.json({mensaje: true, question})
+                        console.log(question)
+                    } else {
+                        res.json({mensaje: false})
+                    }
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({mensaje:false})
+            console.log("Aqui")
+        }
+    }
 }
 
     module.exports = { Game }

@@ -47,6 +47,8 @@ router.post("/game/session/close", Gamecontroller.Game.closeSession),
 router.post("/game/session/start_guest", Gamecontroller.Game.startGuest),
 router.post("/game/session/add_answer", Gamecontroller.Game.addGuestAnswer),
 router.post("/game/session/question", Gamecontroller.Game.startQuestion),
+router.post("/game/session/question/adding_answers", Gamecontroller.Game.addGuestAnswerInQuestion),
+router.post("/game/session/question/get", Gamecontroller.Game.getQuestionByQID),
 
 
 function verifyToken2(req, res, next) {
