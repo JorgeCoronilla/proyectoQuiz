@@ -22,11 +22,8 @@ export const UserAccount = () => {
         institution: e.target.institution.value,
       }
       const res = await defaultFetch("http://localhost:3001/register", "POST", newUser)
-      console.log(res)
       if (res.mensaje) {
         navigate("/");
-      } else {
-        console.log("Hay un error")
       }
   
   }

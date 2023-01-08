@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from 'react'
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { QuestionsCreated } from './questionsCreated';
@@ -6,7 +7,7 @@ import { defaultFetch } from '../../../../helpers/defaultFetch';
 import { FinishQuizzCreation } from './finishQuizzCreation';
 
 
-export const AddQuizzQuestion = () => {
+export const AddQuestionsFromEdit = ({addquestion,setAddQuestion}) => {
     const [refresh, setRefresh] = useState(false);
     const cookies = new Cookies();
     useEffect(() => {
@@ -38,7 +39,7 @@ export const AddQuizzQuestion = () => {
         e.preventDefault();
         let arrayAux = [];
         setquestion(e.target.question.value)
-        setDisplay("adding")
+        setAddQuestion("answers")
         if (questionsArray.length < 1) {
             setQuestionsArray([e.target.question.value]);
         } else {
@@ -52,19 +53,6 @@ export const AddQuizzQuestion = () => {
     return (
         <div>
             <div className='AddQuestion'>
-                <div className="titleClose">
-                    <div> <h5>Nombre del quizz:</h5></div>
-                    <div><button className='close' onClick={add}>&#x2715;</button></div>
-                </div>
-                <h4>{quizzName.name_}</h4>
-            </div>
-            {questions &&
-            <div>
-             <QuestionsCreated questions={questions}refresh={refresh} setRefresh={setRefresh}/>
-             </div>
-            }
-
-            <div className='AddQuestion'>
                 {questionsArray.length >= 1 &&
                     <div>{questionsArray.map(question => {
                         <p>{question.name}</p>
@@ -76,9 +64,6 @@ export const AddQuizzQuestion = () => {
                     <button type="submit" className='addList'>Añadir</button>
                 </form>
             </div>
-            {questions &&
-            <FinishQuizzCreation setLogo={setLogo} logo={logo}/>
-            }
         </div>
     )
 }

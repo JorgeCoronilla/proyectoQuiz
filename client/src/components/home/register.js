@@ -2,19 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { Logo } from '../logo';
+import { Alert } from '../modals/alert';
 
 export const Register = () => {
   const [email, setEmail] = useState();
   const navigate = useNavigate();
   const { token } = useParams();
+  const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState(false);
+
   useEffect(() => {
     defaultFetch("http://localhost:3001/check-email", "POST", { token: token })
       .then((res) => {
         if (res.mensaje) {
           setEmail(res.email);
-          console.log("email correcto")
         } else {
-          console.log("Hay un problema")
+          setMessage("El enlace es incorrecto o ha expirado")
+          setShowAlert(true)
+          setTimeout(()=>{ 
+              setShowAlert(false);
+              navigate("/")
+          },3000)
         }
 
       })
@@ -36,42 +44,59 @@ export const Register = () => {
         institution: e.target.institution.value,
       }
       const res = await defaultFetch("http://localhost:3001/register", "POST", newUser)
-      console.log(res)
       if (res.mensaje) {
-        navigate("/");
+        setMessage("Registro correcto, gracias")
+        setShowAlert(true)
+        setTimeout(()=>{ 
+            setShowAlert(false);
+            navigate("/")
+        },3000)
       } else {
-        console.log("Hay un error")
+        setMessage("Ha habido un error, inténtelo de nuevo")
+        setShowAlert(true)
+        setTimeout(()=>{ 
+            setShowAlert(false);
+            navigate("/")
+        },3000)
       }
     } else {
-      console.log("La contraseña no coincide")
+      setMessage("Las contraseñas no coinciden")
+      setShowAlert(true)
+      setTimeout(()=>{ 
+          setShowAlert(false);
+      },3000)
     }
   }
 
 
   return (
     <div>
+       {showAlert &&
+            <Alert message={message}/>
+            }
       <Logo/>
       <div className='register-container'>
+       
         <h6>Su email ha sido verificado.</h6>
         <h5>¡Gracias!</h5>
-        <p>Continúe con el registro completando el formulario.</p>
+        <div>
         <div className='register'>
           <form onSubmit={insertUser}>
             <h5>Registro</h5>
             <h4>Nombre de usuario</h4>
-            <input type="text" name='user_name' placeholder='Nombre usuario' required></input>
+            <input type="text" name='user_name' placeholder='Nombre usuario' required minLength="5" maxLength="40"></input>
             <br />
             <h4>Nombre completo</h4>
-            <input type="text" name='name_' placeholder='Nombre Completo' required></input>
+            <input type="text" name='name_' placeholder='Nombre Completo' required minLength="5" maxLength="40"></input>
             <br />
             <h4>Email</h4>
-            <input type="text" name='email' placeholder='Nombre Completo' defaultValue={email} required></input>
+            <p>{email}</p>
             <br />
             <h4>Tipo de educación</h4>
-            <input type="text" name='type_education' placeholder='Tipo de educación' required></input>
+            <input type="text" name='type_education' placeholder='Tipo de educación' required minLength="5" maxLength="40"></input>
             <br />
             <h4>Institución</h4>
-            <input type="text" name='institution' placeholder='Institutción' required></input>
+            <input type="text" name='institution' placeholder='Institutción' required minLength="5" maxLength="40"></input>
             <br />
             <h4>País</h4>
             <select id="country" name="country">
@@ -331,13 +356,14 @@ export const Register = () => {
             </select>
             <br />
             <h4>Contraseña</h4>
-            <input type="password" name='pass' required></input>
+            <input type="password" name='pass' required minLength="4" maxLength="12"></input>
             <br />
             <h4>Confirma contraseña</h4>
-            <input type="password" name='confirmPass' required></input>
+            <input type="password" name='confirmPass' required minLength="4" maxLength="12"></input>
             <br />
             <button type="submit">Enviar</button>
           </form>
+        </div>
         </div>
       </div>
       <div className='spacer'></div>

@@ -13,7 +13,7 @@ export const FinalScreen = () => {
 
   useEffect(() => {
     timeName.map(guest => {
-      console.log(guest)
+      console.log("")
     })
 
 

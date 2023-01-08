@@ -3,7 +3,7 @@ import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { InsertRight } from './insertRight';
 import { InsertWrong } from './insertWrong';
 
-export const AddAnswers = () => {
+export const AddAnswers = ({editMode}) => {
 
     const { setDisplay,
         setquestion, question,
@@ -14,8 +14,8 @@ export const AddAnswers = () => {
     return (
         <div>
              {rightAnswer === "" ? 
-            <InsertRight/> 
-            :<InsertWrong />
+            <InsertRight editMode={editMode}/> 
+            :<InsertWrong editMode={editMode}/>
                 }
         </div>
     )

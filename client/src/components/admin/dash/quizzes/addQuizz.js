@@ -4,7 +4,7 @@ import { AddQuizzName } from './addQuizzName';
 import { AddQuizzQuestion } from './addQuizzQuestion';
 export const AddQuizz = () => {
  
-  const { quizzName, showInput, setShowInput, setLogo, logo } = useContext(CreateQuizzContext);
+  const { quizzName, showInput, setShowInput, setLogo, logo, setQuestions } = useContext(CreateQuizzContext);
  
   const add = () => {
     setShowInput(!showInput)
@@ -12,6 +12,7 @@ export const AddQuizz = () => {
   }
 
   useEffect(() => {
+    setQuestions(false)
     var currentQuizz=localStorage.getItem("currentQuiz");
     if (currentQuizz!=="none") {var currentQuizz=parseInt(currentQuizz)};
   }, [showInput])

@@ -39,8 +39,7 @@ const User = {
             } else { res.json({ validation: false }) }
 
         } catch (error) {
-            res.status(500)
-            res.send(error.message)
+            res.json({ validation: false})
         }
     },
 
@@ -69,8 +68,8 @@ const User = {
                 })
 
         } catch (error) {
-            //res.status(500)
-            res.send(error.code)
+            res.json({mensaje: false})
+            console.log(error)
         }
 
 
@@ -93,8 +92,8 @@ const User = {
             res.json({ mensaje: true })
            
         } catch (error) {
-            res.status(500)
-            res.send(error.message)
+            res.json({mensaje: false})
+            console.log(error)
         }
            
 
@@ -121,26 +120,27 @@ const User = {
             if (user) {
                 const token = jwt.sign({ email: req.body.email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' })
                 await sendemail.recover(token, req.body.email, user.name_);
-                res.json({ mensaje: `Email enviado a ${req.body.email}`, token });
+                console.log({ mensaje: `Email enviado a ${req.body.email}`, token });
+                res.json({mensaje: true})
             }
 
         } catch (error) {
-            res.status(500)
-            res.send(error.message)
+            res.json({mensaje: false})
+            console.log(error)
         }
     },
     change_pass: async (req, res) => {
         const { password_, token } = req.body
         var passHash = await bcryptjs.hash(password_, 8);
-        console.log(passHash)
         try {
             jwt.verify(token, process.env.JWT_SECRET_KEY, (error, authData) => {
 
                 if (error) {
+                    console.log(error)
                     res.json({ mensaje: false });
                 } else {
 
-                    console.log("EEE" + authData.email)
+                  
                     let user = UserModel.update({ password_: passHash }, { where: { email: authData.email } });
                     console.log(user)
                     res.json({ mensaje: true })
@@ -148,8 +148,8 @@ const User = {
             })
 
         } catch (error) {
-            res.status(500)
-            res.send(error.message)
+            res.json({mensaje: false})
+            console.log(error)
         }
     },
     checker: async (req, res) => {
@@ -329,25 +329,37 @@ const User = {
     },
     getQuestions: async (req, res) => {
         const { token, quizz_id } = req.body;
-        const verify = jwt.verify(token, process.env.JWT_SECRET_KEY)
-
-        if (verify) {
-            try {
-
-                const questions = await QuestionModel.findAll({ where: { quizz_id: quizz_id } });
-                if (questions.length) { res.json(questions) } else {
-                    res.json({ mensaje: "false" })
+        jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+            if (error) {
+                console.log("Error del token")
+                res.json({ mensaje: false })
+            } else { 
+                
+                userName = user.user_name
+                if (userName) {
+                    try {
+        
+                        QuestionModel.findAll({ where: { quizz_id: quizz_id } })
+                        .then((data) => {
+                            res.json(data)
+                        })
+                        .catch(err => {
+                            if (err) { res.json({mwnsaje:false});
+                        console.log(err) }
+                        })
+                    } catch (error) {
+                        console.log(error)
+                        res.json({ mensaje: false })
+                    }
+                } else {
+                    res.json({ mensaje: false })
                 }
-
-
-            } catch (error) {
-                console.log(error)
-                res.json({ mensaje: "false" })
+        
+            
             }
-        } else {
-            res.json({ mensaje: "false" })
-        }
+        })
 
+      
 
 
     },
@@ -363,9 +375,14 @@ const User = {
 
         if (userName) {
             try {
-                const question = await QuestionModel.findOne({ where: { id: id } })
-                console.log(question);
-                res.json(question)
+                QuestionModel.findOne({ where: { id: id } }).then((data) => {
+                    res.json(data)
+                })
+                .catch(err => {
+                    if (err) { res.json({mwnsaje:false});
+                console.log(err) }
+                })
+               
 
             } catch (error) {
                 res.json({ mensaje: false })

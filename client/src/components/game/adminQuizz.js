@@ -97,7 +97,6 @@ export const AdminQuizz = () => {
     const mixAnswers = (questions, currentQ) => {
         let xNum = Math.floor(Math.random() * 4);
         setrightN(xNum)
-        console.log(rightN)
         let wAnswers;
         if (questions) {
             wAnswers = [questions[currentQ].wrong_answer1,
@@ -115,7 +114,6 @@ export const AdminQuizz = () => {
             wrong1_replies:[], wrong2_replies:[], wrong3_replies:[],users:[],times:[],points:[] })
 
         setLastQ(questions.length);
-        console.log(questions)
         startQTime = timeNow();
         setstartTime(startQTime)
         const wAnswers = mixAnswers(questions, currentQ);
@@ -132,7 +130,7 @@ export const AdminQuizz = () => {
     const manageAnswer = (reply) => {
         let usertime;
         if (((reply.time - previousTime) < 5) && (previousName === reply.user.user)) {
-            console.log("No Debería pasar")
+            console.log("re-rendered")
         } else {
             let q = parseInt(localStorage.getItem("currentQuestion"))
             let answer;

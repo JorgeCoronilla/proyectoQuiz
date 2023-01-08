@@ -5,7 +5,7 @@ import { Logo } from '../../logo';
 import { MainDash } from './mainDash';
 import { Quizzes } from './quizzes/quizzes';
 import { UserAccount } from './account/userAccount';
-import { NavbarQuizzes } from './quizzes/navbarQuizzes';
+import { NavBarDash } from './navBarDash';
 
 export const UserDash = () => {
     const [userOk, setUserOk] = useState();
@@ -28,7 +28,7 @@ export const UserDash = () => {
 
      if (userOk){ return (
         <div>
-             {display === "quizzes" && <NavbarQuizzes setDisplay={setDisplay} />}
+             {display === "quizzes" && <NavBarDash setDisplay={setDisplay} />}
              {logo && <Logo/>}
             {display === "main" && <MainDash setDisplay={setDisplay} logo={logo} setLogo={setLogo} />}
             {display === "quizzes" && <Quizzes setDisplay={setDisplay} logo={logo} setLogo={setLogo}/>}

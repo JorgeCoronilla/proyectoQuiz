@@ -75,7 +75,6 @@ export const MainQuizzRoom = () => {
                     { id: sessionCheck })
                     .then((data, error) => {
                         if (!data.state) {
-                            console.log("Ese quizz está finalizado")
                             navigate("/");
                         }
                     })

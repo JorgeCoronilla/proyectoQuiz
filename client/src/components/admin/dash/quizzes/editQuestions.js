@@ -2,19 +2,23 @@ import React, { useState, useContext, useEffect } from 'react'
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import Cookies from 'universal-cookie';
 import { defaultFetch } from '../../../../helpers/defaultFetch';
+import { AddQuizzQuestion } from './addQuizzQuestion';
+import { AddQuestionsFromEdit } from './addQuestionsFromEdit';
+import { AddAnswers } from './addAnswers';
 
-export const EditQuestions = ({ refresh, setRefresh, currentQuizz }) => {
+export const EditQuestions = ({ refresh, setRefresh, currentQuizz, setShowQuestions, showQuestions }) => {
     const [showEdit, setShowEdit] = useState(false);
     const cookies = new Cookies();
-
+    const [addquestion, setAddQuestion] = useState("no");
+    const [editMode, setEditMode] = useState(true)
     useEffect(()=>{
+      
         let value = cookies.get('session')
-        console.log(currentQuizz)
         defaultFetch(`http://localhost:3001/questions`, "post",
-        { token: value, quizz_id: 66 })
+        { token: value, quizz_id: currentQuizz })
         .then((res) => {
             setQuestions(res);
-            console.log(res)
+         
         })
     },[] )
     const edit = () => {
@@ -27,14 +31,13 @@ export const EditQuestions = ({ refresh, setRefresh, currentQuizz }) => {
 
     const deleteQuestion = e => {
         let token = cookies.get('session')
-        console.log(e.target.id)
+     
 
         defaultFetch("http://localhost:3001/questions/delete", "DELETE", {id: e.target.id,token: token })
         .then((res) => {
           if (res.mensaje) {console.log(res)}
         })
         setShowEdit(!showEdit);
-        setRefresh(!refresh);
     }
     const changeQuestion = e => {
         e.preventDefault();
@@ -49,7 +52,7 @@ export const EditQuestions = ({ refresh, setRefresh, currentQuizz }) => {
             id: e.target.question.id,
             token: token
         }
-        console.log(body)
+      
         let metaData = {
             method: 'post',
             body: JSON.stringify(body),
@@ -66,22 +69,37 @@ export const EditQuestions = ({ refresh, setRefresh, currentQuizz }) => {
         setRefresh(!refresh)
     }
 
+    const showQ = () =>{
+        setShowQuestions(!showQuestions);
+        setQuestions(false)
+      }
+
+    const addQ = () => {
+        setAddQuestion("question")
+    }
+
     return (
-        <div className='questionsLists2Container'>
-            <h4>Preguntas ya creadas</h4>
+       <div className='quizzEdit-container'>
+       <div className='questionEditList'>
+       <div className="titleClose">
+                    <div> <h4>Preguntas</h4></div>
+                    <div ><button className='close' onClick={showQ}>&#x2715;</button></div>
+                </div>
             {questions &&
                 <div>
                     {questions.map((question, index) => {
-                        return <div className='questionsList2' key={index}>
+                        return <div className='questionEditListRow' key={index}>
                             {!showEdit ?
+                                <div>
                                 <div onClick={edit}>
                                     <p key={index}>{(index + 1)}-{question.question}</p>
+                                </div>
                                 </div>
                                 :
                                 <div className='questionEdit'>
                                     <form onSubmit={changeQuestion}>
                                         <p>Pregunta</p>
-                                        <input name="question" defaultValue={question.question} id={question.id}></input>
+                                        <input name="question" defaultValue={question.question} id={question.id} minLength="4" maxLength="10"></input>
                                         <p>Respuesta correcta</p>
                                         <input name="right" defaultValue={question.right_answer} ></input>
                                         <p>Respuestas incorrectas</p>
@@ -95,10 +113,27 @@ export const EditQuestions = ({ refresh, setRefresh, currentQuizz }) => {
                                     </form>
                                 </div>
                             }
+                           
                         </div>
+                         
                     })}
+                  {addquestion==="no" &&
+                  <div className='questionEditListRow' onClick={addQ}><p>Añadir pregunta +</p></div>
+                  }
+                    {addquestion==="question" &&
+                  <AddQuestionsFromEdit addquestion={addquestion} setAddQuestion={setAddQuestion}/>
+                  }
+
+                  {addquestion=== "answers"&&
+                   <AddAnswers addquestion={addquestion} setAddQuestion={setAddQuestion} editMode={editMode}/>}
+
+
+                 
+                   
                 </div>
             }
+        </div>
+        <div className='spacer'></div>
         </div>
     )
 }

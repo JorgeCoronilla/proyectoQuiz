@@ -5,7 +5,7 @@ import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { defaultFetch } from '../../../../helpers/defaultFetch';
 
 export const QuizzesList = () => {
-    const{setLogo, logo}=useContext(CreateQuizzContext)
+    const{setLogo, logo, setQuestions}=useContext(CreateQuizzContext)
     const [showQuizzes, setShowQuizzes] = useState(false);
     const [quizzes, setQuizzes] = useState();
     const cookies = new Cookies();
@@ -21,6 +21,7 @@ export const QuizzesList = () => {
     const checkQuizzes = () =>{
         setShowQuizzes(!showQuizzes)
         setLogo(!logo)
+        setQuestions(false)
     }
   return (
     <div>

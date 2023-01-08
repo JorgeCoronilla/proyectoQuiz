@@ -18,7 +18,6 @@ export const GuestQuizz = () => {
   useEffect(() => {
     socket.on('display', (state) => {
       setDisplay(state);
-      console.log(state)
     });
     socket.on('answers', (answers) => {
       setAnswers(answers);

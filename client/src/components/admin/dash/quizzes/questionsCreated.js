@@ -7,18 +7,27 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
     const [showEdit, setShowEdit] = useState(false);
     const cookies = new Cookies();
 
+    useEffect(()=> {
+        let value = cookies.get('session')
+        const id = parseInt(localStorage.getItem("currentQuiz"))
+        if (id !== null) {  
+            defaultFetch(`http://localhost:3001/questions`, "post", { token: value, quizz_id: id }).then((questions) => {
+            setQuestions(questions);
+
+        })}
+
+    })
 
     const edit = () => {
         setShowEdit(!showEdit)
     }
 
     const { setDisplay,
-        questions
+        questions, setQuestions
     } = useContext(CreateQuizzContext);
 
     const deleteQuestion = e => {
         let token = cookies.get('session')
-        console.log(e.target.id)
 
         defaultFetch("http://localhost:3001/questions/delete", "DELETE", {id: e.target.id,token: token })
         .then((res) => {
@@ -40,7 +49,7 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
             id: e.target.question.id,
             token: token
         }
-        console.log(body)
+      
         let metaData = {
             method: 'post',
             body: JSON.stringify(body),
@@ -52,9 +61,9 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
         };
 
         fetch("http://localhost:3001/questions/update", metaData)
-            .then((res) => console.log(res))
+            .then((res) =>  setRefresh(!refresh))
         setShowEdit(!showEdit)
-        setRefresh(!refresh)
+       
     }
 
     return (

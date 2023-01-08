@@ -33,7 +33,7 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
       level_: e.target.level.value,
       token: value
     }
-    console.log(body)
+    
     let metaData = {
       method: 'post',
       body: JSON.stringify(body),
@@ -56,7 +56,6 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
     await defaultFetch("http://localhost:3001/quizz/delete", "DELETE", { id: currentQuizz, token: value })
       .then((res) => {
         if (res.mensaje) {
-          console.log(res);
           setShowEdit(!showEdit)
         };
 
@@ -78,7 +77,7 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
 
     <div>
       {showQuestions ?  <div className='quizzEdit-container'>
-              <EditQuestions currentQuizz={currentQuizz}/>
+              <EditQuestions currentQuizz={currentQuizz} setShowQuestions={setShowQuestions} showQuestions={showQuestions}/>
       </div> :
           <div className='quizzEdit-container'>
           <div>
@@ -86,6 +85,7 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
               <form onSubmit={changeQuizz}>
                 {printQuizz &&
                   <div>
+                    <div className='closeBtn'><button className='close' onClick={editQuizz}>&#x2715;</button></div>
                     <p>Nombre del quizz</p>
                     <input name="name" defaultValue={printQuizz.name_} id={printQuizz.id}></input>
                     <p>Tema</p>
@@ -98,7 +98,6 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
                     </select>
   
                     <button type="submit" >Modificar</button>
-                    <button onClick={editQuizz} >volver</button>
                     <button onClick={deleteQuizz} id={printQuizz.id}>Eliminar</button>
                     <button onClick={showQ} id={printQuizz.id}>Muestra las preguntas</button>
                   </div>

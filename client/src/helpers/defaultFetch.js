@@ -23,7 +23,7 @@ export const defaultFetch = async (endPoint, metodo, datos) => {
         "Content-type": "application/json",
       },
     };
-    // console.log(metaData)
+    
     const res = (await fetch(endPoint, metaData)).json();
     return res;
   }

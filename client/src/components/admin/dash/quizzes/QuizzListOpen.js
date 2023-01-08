@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FiPlay } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 import { defaultFetch } from '../../../../helpers/defaultFetch';
+import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { EditQuizz } from './editQuizz';
 
 
 
 export const QuizzListOpen = ({ quizzes, setQuizzes }) => {
-
+  const{setLogo, logo, setQuestions}=useContext(CreateQuizzContext)
   const [showEdit, setShowEdit] = useState(false);
   const [currentQuizz, setCurrentQuizz] = useState()
   const cookies = new Cookies();
@@ -18,10 +19,10 @@ export const QuizzListOpen = ({ quizzes, setQuizzes }) => {
     let value = cookies.get('session')
     defaultFetch(`http://localhost:3001/quizzes`, "post", {token: value}).then((res) => {
       setQuizzes(res);})
+      setQuestions(false)
   },[showEdit])
  
   const playQuizz = e => {
-    console.log(e)
     localStorage.setItem("currentQuiz", JSON.stringify(e));
     defaultFetch(`http://localhost:3001/game/session`, "post",
     { quizzid: e, total_questions:0, guests:[], state:true })
@@ -29,14 +30,13 @@ export const QuizzListOpen = ({ quizzes, setQuizzes }) => {
       
       localStorage.setItem("sessionID",data.id );
       navigate("/quizz");
-      console.log("Llea")
     })
 
   }
   const editQuizz = e => {
     setShowEdit(!showEdit)
     setCurrentQuizz(e.target.id)
-
+    localStorage.setItem("currentQuiz", e.target.id);
   }
 
   return (
