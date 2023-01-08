@@ -7,7 +7,7 @@ export const LinkContainer = ({setDisplay}) => {
         <div>
             <div className='linkContainer'>
                 <h6 className='login' onClick={loginLink}>Log in</h6>
-                <h6 className='signin' onClick={signinLink}>Sig in</h6>
+                <h6 className='signin' onClick={signinLink}>Sign in</h6>
             </div>
         </div>
     )

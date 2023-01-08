@@ -2,14 +2,13 @@ import React, { useEffect, useState, useContext } from 'react'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { CreateGameContext } from '../../providers/createGameProvider';
 import { FinalScreen } from './admin/finalScreen';
-import { GameNavBar } from './admin/gameNavBar';
 import { LiveStats } from './admin/liveStats';
 import { QuestionNavBar } from './admin/questionNavBar';
 import { QuizzIntro } from './admin/quizzIntro';
 import { Scores } from './admin/scores';
 import { TimeStats } from './admin/timeStats';
 import { UserList } from './admin/userList';
-import { checkArray, checkReply, mixAnswers, timeNow } from './gameHelpers/helpers';
+import { checkReply, timeNow } from './gameHelpers/helpers';
 
 
 export const AdminQuizz = () => {
@@ -17,18 +16,17 @@ export const AdminQuizz = () => {
     const { quizz, questions, socket,
         display, setDisplay,
         userList, setUserList,
-        currentQ, setCurrentQ,
-        cA1, setcA1, cA2, setcA2, cA3, setcA3, cA4, setcA4,
-        chA1, setchA1, chA2, setchA2, chA3, setchA3, chA4, setchA4,
-        hB1, sethB1, hB2, sethB2, hB3, sethB3, hB4, sethB4,
-        rightN, setrightN, nextFunct, startTime, setstartTime,
-        timeName, setTimeName, timeOfReply, setTimeOfReply,
-        points, setPoints, lastQ, setLastQ
+        currentQ, 
+        setcA1, setcA2, setcA3, setcA4,
+        setchA1, setchA2, setchA3, setchA4,
+        sethB1, sethB2, sethB3, sethB4,
+        setrightN, nextFunct, setstartTime,
+        setTimeName, setTimeOfReply,
+        setPoints, setLastQ
     } = useContext(CreateGameContext);
+
     const quizzId = parseInt(localStorage.getItem('currentQuiz'))
     const room = localStorage.getItem('currentQuiz')
-    const [reply1, setReply1] = useState();
-    const [refresh, setRefresh] = useState(true);
     const [newUser, setNewUser] = useState();
     const [answers, setAnswers] = useState();
     let fecha;
@@ -45,6 +43,8 @@ export const AdminQuizz = () => {
             if (currentQ === (questions.length)) {
                 setDisplay("final");
             } else {
+
+                //Se cambian estados a valores por defecto después de cada pregunta
                 setcA1(0); setcA2(0); setcA3(0); setcA4(0);
                 setchA1(5); setchA2(5); setchA3(5); setchA4(5);
                 sethB1(1); sethB2(2); sethB3(3); sethB4(4);
@@ -58,6 +58,8 @@ export const AdminQuizz = () => {
                 const room = JSON.stringify(quizz.id);
                 socket.emit('display', { room: room, state: "playing" })
                 socket.emit('answers', { room: room, answers: wAnswers })
+                
+                //Se suben datos después de las respuestas a la pregunta
                 defaultFetch(`http://localhost:3001/game/session/question`, "post",
                 { session: sessionID, quizzid:quizz.id , questionid:questions[currentQ].id,right_replies:[], 
                     wrong1_replies:[], wrong2_replies:[], wrong3_replies:[],users:[],times:[],points:[] })
@@ -66,16 +68,16 @@ export const AdminQuizz = () => {
 
     }, [currentQ])
 
+    //Registro de participantes
     useEffect(() => {
         if (newUser) {
             setUserList([...userList, newUser]);
-
             defaultFetch(`http://localhost:3001/game/session/add_user`, "post",
                 { _id: sessionID, guest: newUser.user })
-
             setNewUser(null);
         }
     }, [newUser])
+
 
     const connect = () => {
         const room = JSON.stringify(quizz.id);

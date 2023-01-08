@@ -1,26 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Cookies from 'universal-cookie';
 import { defaultFetch } from '../../../../helpers/defaultFetch';
-import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { EditQuestions } from './editQuestions';
-import { QuestionsCreated } from './questionsCreated';
 
-export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
+export const EditQuizz = ({ setShowEdit, showEdit, currentQuizz }) => {
   const cookies = new Cookies();
   const [printQuizz, setPrintQuizz] = useState();
   const [refresh, setRefresh] = useState(false);
   const [showQuestions, setShowQuestions] = useState(false);
-  const { questions, setQuestions } = useContext(CreateQuizzContext);
-
-
 
   useEffect(() => {
     let value = cookies.get('session')
     defaultFetch(`http://localhost:3001/quizz`, "post", { id: currentQuizz, token: value }).then((res) => {
-      setPrintQuizz(res);
+      setPrintQuizz(res)
     })
-  }
-    , [showEdit, refresh])
+  }, [showEdit, refresh])
 
   const changeQuizz = async e => {
     e.preventDefault();
@@ -33,7 +27,7 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
       level_: e.target.level.value,
       token: value
     }
-    
+
     let metaData = {
       method: 'post',
       body: JSON.stringify(body),
@@ -61,25 +55,23 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
 
       });
     setRefresh(!refresh);
-
   }
+  
   const editQuizz = e => {
     //setShowEdit(!showEdit)
   }
 
-  const showQ = () =>{
-   
+  const showQ = () => {
     setShowQuestions(!showQuestions)
   }
-
 
   return (
 
     <div>
-      {showQuestions ?  <div className='quizzEdit-container'>
-              <EditQuestions currentQuizz={currentQuizz} setShowQuestions={setShowQuestions} showQuestions={showQuestions}/>
+      {showQuestions ? <div className='quizzEdit-container'>
+        <EditQuestions currentQuizz={currentQuizz} setShowQuestions={setShowQuestions} showQuestions={showQuestions} />
       </div> :
-          <div className='quizzEdit-container'>
+        <div className='quizzEdit-container'>
           <div>
             <div className='quizzEdit' >
               <form onSubmit={changeQuizz}>
@@ -96,22 +88,22 @@ export const EditQuizz = ({ quizzes, setShowEdit, showEdit, currentQuizz }) => {
                       <option>normal</option>
                       <option>difícil</option>
                     </select>
-  
+
                     <button type="submit" >Modificar</button>
                     <button onClick={deleteQuizz} id={printQuizz.id}>Eliminar</button>
                     <button onClick={showQ} id={printQuizz.id}>Muestra las preguntas</button>
                   </div>
-                
+
                 }
-                
+
               </form>
             </div>
           </div>
-         
+
         </div>
       }
-  
-      
+
+
     </div>
 
   )

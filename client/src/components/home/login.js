@@ -10,12 +10,12 @@ export const Login = ({setDisplay}) => {
 const [recover, setRecover] = useState(false);
 const [showAlert, setShowAlert] = useState(false);
 const [message, setMessage] = useState(false);
+const cookies = new Cookies();
+const navigate = useNavigate();
+    
+    const recoverPass = () => {setRecover(true);}
 
-    const cookies = new Cookies();
-    const navigate = useNavigate();
-    const recoverPass = () => {
-        setRecover(true);
-    }
+    //Login
     const sendLogin = async e => {
         e.preventDefault();
 
@@ -40,7 +40,7 @@ const [message, setMessage] = useState(false);
         localStorage.setItem("currentQuiz", "none")
     }
     if (!recover){
-        return (
+        return ( //Muestra login
             <div>
                  {showAlert &&
             <Alert message={message}/>
@@ -58,10 +58,9 @@ const [message, setMessage] = useState(false);
                 <BackHome setDisplay={setDisplay}/>
             </div>
         )
-    } else{
-        return ( 
+    } else { return ( //Muestra el componente de recuperación de comtraseña 
         
-        <RecoverPass setRecover={setRecover}/>
+        <RecoverPass setRecover={setRecover} setDisplay={setDisplay}/>
         )
        
     }

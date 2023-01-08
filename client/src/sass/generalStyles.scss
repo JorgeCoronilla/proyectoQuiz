@@ -1,9 +1,4 @@
-/*
-font-family: 'Monoton', cursive;
-font-family: 'Roboto', sans-serif;
-font-family: 'Roboto Condensed', sans-serif;
 
-/* Change the white to any color */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -20,7 +15,7 @@ input:-webkit-autofill:active {
 }
 
 body {
-    background-color: #6b8f24c8;
+    background-color: rgba(107, 143, 36, 0.784);
     font-family: 'Roboto', sans-serif;
     margin: 0;
 
@@ -33,13 +28,11 @@ div {
 
 
 .formContainer {
-
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.224);
     border: solid 3px rgb(48, 66, 15);
-    ;
     margin: 60px 10% 40px;
-    /*border-radius: 5px;*/
+   
 }
 
 .formContainer div {
@@ -65,8 +58,6 @@ div {
     font-weight: 900;
     text-align: center;
     padding: 10px;
-    /*border-radius: 5px;*/
-    /*border: 1px solid rgb(194, 194, 194);*/
     background-color: transparent;
     border: 3px solid white;
     width: 91%;

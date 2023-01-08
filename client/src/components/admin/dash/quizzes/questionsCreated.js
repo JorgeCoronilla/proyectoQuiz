@@ -7,14 +7,15 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
     const [showEdit, setShowEdit] = useState(false);
     const cookies = new Cookies();
 
-    useEffect(()=> {
+    useEffect(() => {
         let value = cookies.get('session')
         const id = parseInt(localStorage.getItem("currentQuiz"))
-        if (id !== null) {  
+        if (id !== null) {
             defaultFetch(`http://localhost:3001/questions`, "post", { token: value, quizz_id: id }).then((questions) => {
-            setQuestions(questions);
+                setQuestions(questions);
 
-        })}
+            })
+        }
 
     })
 
@@ -22,20 +23,18 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
         setShowEdit(!showEdit)
     }
 
-    const { setDisplay,
-        questions, setQuestions
+    const { questions, setQuestions
     } = useContext(CreateQuizzContext);
 
     const deleteQuestion = e => {
         let token = cookies.get('session')
 
-        defaultFetch("http://localhost:3001/questions/delete", "DELETE", {id: e.target.id,token: token })
-        .then((res) => {
-          if (res.mensaje) {console.log(res)}
-        })
+        defaultFetch("http://localhost:3001/questions/delete", "DELETE", { id: e.target.id, token: token })
+            .then((res) => { if (res.mensaje) { console.log(res) } })
         setShowEdit(!showEdit);
         setRefresh(!refresh);
     }
+
     const changeQuestion = e => {
         e.preventDefault();
         let token = cookies.get('session')
@@ -49,7 +48,7 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
             id: e.target.question.id,
             token: token
         }
-      
+
         let metaData = {
             method: 'post',
             body: JSON.stringify(body),
@@ -61,9 +60,8 @@ export const QuestionsCreated = ({ refresh, setRefresh }) => {
         };
 
         fetch("http://localhost:3001/questions/update", metaData)
-            .then((res) =>  setRefresh(!refresh))
+            .then((res) => setRefresh(!refresh))
         setShowEdit(!showEdit)
-       
     }
 
     return (

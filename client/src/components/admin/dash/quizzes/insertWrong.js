@@ -3,15 +3,11 @@ import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import Cookies from 'universal-cookie';
 import { QuestionsCreated } from './questionsCreated';
 
-export const InsertWrong = ({editMode}) => {
+export const InsertWrong = ({ editMode }) => {
+
   const cookies = new Cookies();
-  const { setDisplay,
-    question,
-    rightAnswer,
-    wrongAnswers, setWrongAnswers,
-    quizzName,
-    currentQuizz, setCurrentQuizz,
-    questions, setQuestions
+  const { setDisplay, question, rightAnswer,
+    quizzName, questions, setQuestions
   } = useContext(CreateQuizzContext);
 
   const addWrong = e => {
@@ -31,6 +27,7 @@ export const InsertWrong = ({editMode}) => {
       quizz_id: quizz_id,
       token: token
     }
+
     let metaData = {
       method: 'post',
       body: JSON.stringify(body),
@@ -40,14 +37,14 @@ export const InsertWrong = ({editMode}) => {
         "Content-type": "application/json",
       },
     };
-   
+
     fetch("http://localhost:3001/questions/new", metaData)
       .then((res) => console.log(res))
 
     e.target.wrong1.value = "";
     e.target.wrong2.value = "";
     e.target.wrong3.value = "";
-    if(!editMode) {
+    if (!editMode) {
       setDisplay("main")
     }
     setQuestions(false)
@@ -57,17 +54,17 @@ export const InsertWrong = ({editMode}) => {
   return (
     <div>
       {(questions && !editMode) &&
-                <QuestionsCreated questions={questions} />
-            }
-       {!editMode &&
-                <div className='AddQuestion'>
-                    <div className="titleClose">
-                        <div> <h5>Nombre del quizz:</h5></div>
-                        <div></div>
-                    </div>
-                    <h4>{quizzName.name_}</h4>
-                </div>
-            }
+        <QuestionsCreated questions={questions} />
+      }
+      {!editMode &&
+        <div className='AddQuestion'>
+          <div className="titleClose">
+            <div> <h5>Nombre del quizz:</h5></div>
+            <div></div>
+          </div>
+          <h4>{quizzName.name_}</h4>
+        </div>
+      }
       <div className='AddQuestion'>
         <form onSubmit={addWrong}>
           <div className="titleClose">
@@ -82,14 +79,11 @@ export const InsertWrong = ({editMode}) => {
               <input type="text" name="wrong2" minLength="2" maxLength="60"></input>
               <input type="text" name="wrong3" minLength="2" maxLength="60"></input>
               <button type="submit">Añadir</button>
-
             </div>
-
           </div>
         </form>
       </div>
       <div className='spacer'></div>
     </div>
-
   )
 }

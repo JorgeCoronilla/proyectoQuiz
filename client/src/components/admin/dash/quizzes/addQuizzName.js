@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import { defaultFetch } from '../../../../helpers/defaultFetch';
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import Cookies from 'universal-cookie';
 import { Alert } from '../../../modals/alert';
@@ -7,8 +6,8 @@ import { Alert } from '../../../modals/alert';
 export const AddQuizzName = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [message, setMessage] = useState(false);
-    
-    const { setQuestions, setQuizzName, quizz, quizzName, showInput, setShowInput, logo, setLogo } = useContext(CreateQuizzContext);
+
+    const { setQuestions, setQuizzName, showInput, setShowInput, logo, setLogo } = useContext(CreateQuizzContext);
     const cookies = new Cookies();
 
     const add = () => {
@@ -42,16 +41,16 @@ export const AddQuizzName = () => {
                 localStorage.setItem("currentQuiz", JSON.stringify(res))
                 setMessage("Quizz creado correctamente")
                 setShowAlert(true)
-                setTimeout(()=>{ 
+                setTimeout(() => {
                     setShowAlert(false);
-                },2000)
+                }, 2000)
             })
     }
 
     return (
         <div>
-             {showAlert &&
-            <Alert message={message}/>
+            {showAlert &&
+                <Alert message={message} />
             }
             <div className='AddQuestion'>
                 <div className="titleClose">
@@ -59,7 +58,7 @@ export const AddQuizzName = () => {
                     <div><button className='close' onClick={add}>&#x2715;</button></div>
                 </div>
                 <form onSubmit={addQuizz}>
-                    <input placeholder="Escribe el título" required name="name" minLength="5" maxLength="60"/>
+                    <input placeholder="Escribe el título" required name="name" minLength="5" maxLength="60" />
                     <h4>Tema del quizz</h4>
                     <input placeholder="Tema" required name="topic" minLength="5" maxLength="40"></input>
                     <h4>Dificultad</h4>

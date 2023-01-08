@@ -13,21 +13,18 @@ export const AddQuizzQuestion = () => {
         setRightAnswer("")
         let value = cookies.get('session');
         const id = parseInt(localStorage.getItem("currentQuiz"))
-        if (id !== null) {  
+        if (id !== null) {
             defaultFetch(`http://localhost:3001/questions`, "post", { token: value, quizz_id: id }).then((questions) => {
-            setQuestions(questions);
-        })}
-      
+                setQuestions(questions);
+            })
+        }
     }, [refresh])
-    
+
     const { setDisplay, setquestion,
-        question, quizzName,
-        questions, setQuestions,
+        quizzName, questions, setQuestions,
         questionsArray, setQuestionsArray,
-        setRightAnswer,
-        showInput, setShowInput,
-        setLogo, logo
-    } = useContext(CreateQuizzContext);
+        setRightAnswer, showInput, setShowInput,
+        setLogo, logo } = useContext(CreateQuizzContext);
 
     const add = () => {
         setShowInput(!showInput);
@@ -53,31 +50,36 @@ export const AddQuizzQuestion = () => {
         <div>
             <div className='AddQuestion'>
                 <div className="titleClose">
-                    <div> <h5>Nombre del quizz:</h5></div>
-                    <div><button className='close' onClick={add}>&#x2715;</button></div>
+                    <div>
+                        <h5>Nombre del quizz:</h5>
+                    </div>
+                    <div>
+                        <button className='close' onClick={add}>&#x2715;</button>
+                    </div>
                 </div>
                 <h4>{quizzName.name_}</h4>
             </div>
             {questions &&
-            <div>
-             <QuestionsCreated questions={questions}refresh={refresh} setRefresh={setRefresh}/>
-             </div>
+                <div>
+                    <QuestionsCreated questions={questions} refresh={refresh} setRefresh={setRefresh} />
+                </div>
             }
 
             <div className='AddQuestion'>
                 {questionsArray.length >= 1 &&
                     <div>{questionsArray.map(question => {
                         <p>{question.name}</p>
-                    })}</div>
+                    })}
+                    </div>
                 }
                 <h5>Pregunta nueva</h5>
                 <form onSubmit={addQuestion}>
-                    <textarea placeholder="Escribe la pregunta" required name="question"  minLength="5" maxLength="80"/>
+                    <textarea placeholder="Escribe la pregunta" required name="question" minLength="5" maxLength="80" />
                     <button type="submit" className='addList'>Añadir</button>
                 </form>
             </div>
             {questions &&
-            <FinishQuizzCreation setLogo={setLogo} logo={logo}/>
+                <FinishQuizzCreation setLogo={setLogo} logo={logo} />
             }
         </div>
     )

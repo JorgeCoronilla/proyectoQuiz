@@ -6,10 +6,8 @@ import { defaultFetch } from '../../../../helpers/defaultFetch';
 import { CreateQuizzContext } from '../../../../providers/createQuizProvider';
 import { EditQuizz } from './editQuizz';
 
-
-
 export const QuizzListOpen = ({ quizzes, setQuizzes }) => {
-  const{setLogo, logo, setQuestions}=useContext(CreateQuizzContext)
+  const{setQuestions}=useContext(CreateQuizzContext)
   const [showEdit, setShowEdit] = useState(false);
   const [currentQuizz, setCurrentQuizz] = useState()
   const cookies = new Cookies();
@@ -27,7 +25,6 @@ export const QuizzListOpen = ({ quizzes, setQuizzes }) => {
     defaultFetch(`http://localhost:3001/game/session`, "post",
     { quizzid: e, total_questions:0, guests:[], state:true })
     .then ((data, error)=> {
-      
       localStorage.setItem("sessionID",data.id );
       navigate("/quizz");
     })
@@ -45,7 +42,6 @@ export const QuizzListOpen = ({ quizzes, setQuizzes }) => {
         {quizzes.map((quizz, index) => {
           return (
             <div className='quizzListRow' key={index} >
-
               <div>
                 <div className='titleClose'>
                   <div >

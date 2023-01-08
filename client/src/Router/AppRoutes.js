@@ -22,10 +22,8 @@ export const AppRoutes = () => {
 
         {/*User dash*/}
         <Route path="/dash" element={<UserDash/>} />
-
-        {/*Quizz for guests*/}
-        
-        {/*Quizz for user*/}
+      
+        {/*Quizz */}
         <Route path="/quizz" element={<MainQuizzRoom/>} />
       </Routes>
     </div>

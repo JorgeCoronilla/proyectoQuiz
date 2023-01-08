@@ -7,25 +7,24 @@ export const UserAccount = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
 
-
   const updateUser = async e => {
     e.preventDefault();
 
-      let token = cookies.get('session')
-      var newUser = {
-        jwt: token,
-        user_name: e.target.user_name.value,
-        name_: e.target.name_.value,
-        email: e.target.email.value,
-        country: e.target.country.value,
-        type_education: e.target.type_education.value,
-        institution: e.target.institution.value,
-      }
-      const res = await defaultFetch("http://localhost:3001/register", "POST", newUser)
-      if (res.mensaje) {
-        navigate("/");
-      }
-  
+    let token = cookies.get('session')
+    var newUser = {
+      jwt: token,
+      user_name: e.target.user_name.value,
+      name_: e.target.name_.value,
+      email: e.target.email.value,
+      country: e.target.country.value,
+      type_education: e.target.type_education.value,
+      institution: e.target.institution.value,
+    }
+    const res = await defaultFetch("http://localhost:3001/register", "POST", newUser)
+    if (res.mensaje) {
+      navigate("/");
+    }
+
   }
   return (
     <div>

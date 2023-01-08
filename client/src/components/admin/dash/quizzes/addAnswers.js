@@ -5,17 +5,14 @@ import { InsertWrong } from './insertWrong';
 
 export const AddAnswers = ({editMode}) => {
 
-    const { setDisplay,
-        setquestion, question,
-        rightAnswer, setRightAnswer,
-        wrongAnswers, setWrongAnswers
-    } = useContext(CreateQuizzContext);  
+    const { rightAnswer} = useContext(CreateQuizzContext);  
 
     return (
         <div>
              {rightAnswer === "" ? 
             <InsertRight editMode={editMode}/> 
-            :<InsertWrong editMode={editMode}/>
+            :
+            <InsertWrong editMode={editMode}/>
                 }
         </div>
     )

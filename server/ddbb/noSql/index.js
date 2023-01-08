@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 //MongoDB connection
 
 mongoose.connect(process.env.DB_URI_MONGO, {useNewUrlPArser: true, useUnifiedTopology: true, maxPoolSize: 50, 

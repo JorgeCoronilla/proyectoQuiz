@@ -2,8 +2,10 @@ import React from 'react'
 import { NavBarDash } from './navBarDash'
 
 export const MainDash = ({setDisplay}) => {
+
     const account = () => { setDisplay("account") }
     const quizzes = () => { setDisplay("quizzes") }
+    
   return (
     <div>
       <NavBarDash/>

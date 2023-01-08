@@ -1,11 +1,7 @@
-
 const router = require("express").Router();
 const Usercontroller = require('../controllers/user.controller')
-const Guestcontroller = require('../controllers/guest.controller');
 const Gamecontroller = require('../controllers/game.cotroller')
-
 const jwt = require("jsonwebtoken");
-
 
 /*Home*/
 router.post("/login", Usercontroller.User.login)
@@ -16,6 +12,7 @@ router.post("/recover-pass", Usercontroller.User.recover)
 router.post("/change-pass", Usercontroller.User.change_pass)
 router.post("/check", verifyToken, Usercontroller.User.checker)
 router.post("/check-email", Usercontroller.User.emailChecker)
+
 /*quizzes*/
 router.post("/quizzes", Usercontroller.User.getQuizzes)
 router.post("/quizzes/new", Usercontroller.User.insertQuizz)
@@ -29,9 +26,6 @@ router.post("/questions/new",Usercontroller.User.insertQuestion),
 router.post("/questions/update",Usercontroller.User.updateQuestion), 
 router.delete("/questions/delete",Usercontroller.User.deleteQuestion),
 router.post("/question/",Usercontroller.User.getQuestion),
-
-/*Guest*/
-router.get("/join", Guestcontroller.Guest.join)
 
 /*Game*/
 router.post("/game/session", Gamecontroller.Game.startSession),

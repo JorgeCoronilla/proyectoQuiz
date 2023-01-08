@@ -38,11 +38,16 @@ export const MainQuizzRoom = () => {
     const [startTime, setstartTime] = useState(0);
     const [timeName, setTimeName] = useState([]);
     const [timeOfReply, setTimeOfReply] = useState([]);
-    const [ points, setPoints] = useState([]);
-    const [ lastQ, setLastQ] = useState([]);
+    const [points, setPoints] = useState([]);
+    const [lastQ, setLastQ] = useState([]);
 
     const navigate = useNavigate();
 
+    //Comprueba:
+   
+    //- Si es un usuario registrado: Carga quizz y preguntas
+   
+    //- Si no está logueado comprueba si hay sesión abierta para jugar
 
     useEffect(() => {
         localStorage.setItem("currentQuestion", "0")
@@ -102,7 +107,7 @@ export const MainQuizzRoom = () => {
             }}>
             <div>
                 <Logo />
-                {userOk ? <AdminQuizz socket={socket}/> : <GuestQuizz socket={socket}/>}
+                {userOk ? <AdminQuizz socket={socket} /> : <GuestQuizz socket={socket} />}
             </div>
         </CreateGameContext.Provider>
     )

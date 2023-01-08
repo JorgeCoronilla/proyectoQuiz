@@ -1,25 +1,12 @@
 
-import React, { useContext, useState, useEffect } from 'react'
+import React from 'react'
 import { defaultFetch } from '../../../helpers/defaultFetch'
 import congrats from '../../../media/congrats.gif'
 import { useNavigate } from 'react-router-dom'
-import { CreateGameContext } from '../../../providers/createGameProvider'
 
 export const FinalScreen = () => {
 
   const navigate = useNavigate();
-  const { timeName, points } = useContext(CreateGameContext);
-
-
-  useEffect(() => {
-    timeName.map(guest => {
-      console.log("")
-    })
-
-
-  }, [])
-
-
 
   const finish = () => {
     let _id = localStorage.getItem("sessionID")

@@ -2,19 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { CreateGameContext } from '../../providers/createGameProvider';
 import { FinalScreenGuest } from './guest/finalScreenGuest';
-import { WaitingGuests} from './guest/waitingGuests'
-import {Answered} from './guest/answered'
-import {AnswerChart} from './guest/answerChart'
+import { WaitingGuests } from './guest/waitingGuests'
+import { Answered } from './guest/answered'
+import { AnswerChart } from './guest/answerChart'
 
 export const GuestQuizz = () => {
+
   const [display, setDisplay] = useState();
   const [answers, setAnswers] = useState();
   const [screen, setScreen] = useState(true);
   const [user, setUser] = useState()
-  const { socket, startTime, setstartTime } = useContext(CreateGameContext);
+  const { socket } = useContext(CreateGameContext);
   let replyTime;
 
-
+  //Inicia escucha en Socket
   useEffect(() => {
     socket.on('display', (state) => {
       setDisplay(state);
@@ -25,7 +26,7 @@ export const GuestQuizz = () => {
 
   }, [display])
 
-
+  //Inicia sessión de invitado
   const sendName = (e) => {
     e.preventDefault();
     var room = JSON.parse(localStorage.getItem('currentQuiz'));
@@ -37,9 +38,7 @@ export const GuestQuizz = () => {
       .then((res) => {
         id = res.id;
         localStorage.setItem('guestID', res.id)
-
       });
-
 
     var user_data = {
       user: e.target.name.value,
@@ -48,18 +47,16 @@ export const GuestQuizz = () => {
       role: "guest"
     }
 
+    //Notifica de que e ha unido a la sesión
     socket.emit('join', room);
     socket.emit('first_conn', user_data);
     setUser(user_data)
-
     setDisplay("waiting")
     setScreen(false)
   }
 
 
-
-
-  return (
+  return (  //Se cargan los diferentes estados en función del ciclo del juego
 
     <div>
 

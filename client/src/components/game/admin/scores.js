@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { CreateGameContext } from '../../../providers/createGameProvider';
 
 export const Scores = () => {
@@ -7,14 +7,6 @@ export const Scores = () => {
         timeName, points
     } = useContext(CreateGameContext);
 
-    /*const [totalPoints]
-    useEffect(()=> {
-
-        defaultFetch(`http://localhost:3001/game/session/question/adding_answers`, "post",
-        {questionid:questions[q].id, user: reply.user.user,time: usertime ,points:0})
-        
-    },[])
-*/
     return (
         <div>
 
@@ -47,5 +39,3 @@ export const Scores = () => {
         </div>
     )
 }
-
-//{/*<div className={`barTime${(score * 10)}`} >*/}

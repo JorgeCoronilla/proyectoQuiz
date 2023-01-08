@@ -1,8 +1,10 @@
 import React from 'react'
 
 export const NavbarQuizzes = ({setDisplay}) => {
+
     const account = () => { setDisplay("account") }
     const menu = () => { setDisplay("main") }
+    
   return (
     <div className='navbarHome'>
     <div className='linkNavbar1'><h6 onClick={account} className='navLink1'>Account</h6></div>

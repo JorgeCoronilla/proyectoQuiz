@@ -4,24 +4,14 @@ import { QuestionsCreated } from './questionsCreated';
 
 export const InsertRight = ({ editMode }) => {
 
-    const { setDisplay,
-        setquestion, question,
-        rightAnswer, setRightAnswer,
-        wrongAnswers, setWrongAnswers,
-        quizzName, questions, setQuestions
+    const { question, setRightAnswer, quizzName, questions
     } = useContext(CreateQuizzContext);
-
 
     const addRight = e => {
         e.preventDefault();
         setRightAnswer(e.target.right.value)
         e.target.right.value = "";
     }
-
-    const close = () => {
-        setDisplay("main")
-    }
-
 
     return (
         <div>

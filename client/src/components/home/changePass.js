@@ -3,15 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { defaultFetch } from '../../helpers/defaultFetch';
 import { Logo } from '../logo';
 import { Alert } from '../modals/alert';
+
+
 export const ChangePass = () => {
+  
   const { token } = useParams();
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(false);
   const [message, setMessage] = useState(false);
 
+  //Recoge y comprueba nuezva contraseña
   const newPass = async e => {
     e.preventDefault();
-
     if (e.target.pass.value === e.target.confirmPass.value) {
 
       var newUser = {
@@ -26,6 +29,7 @@ export const ChangePass = () => {
             setShowAlert(false);
             navigate("/")
         },3000)
+        
       } else {
         setMessage("Ha ocurrido un problema, pruebe de nuevo")
         setShowAlert(true)

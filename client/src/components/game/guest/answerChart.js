@@ -25,6 +25,7 @@ export const AnswerChart = ({ answers, user, setDisplay }) => {
           {answers.map((answer, index) =>
             <div key={index} id={index} className='answerBtn' onClick={reply}>
               <h6 onClick={reply}>{answer}</h6>
+              <div className='answerNumber'>{(index+1)}</div>
             </div>
           )}
         </div>

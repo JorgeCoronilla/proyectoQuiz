@@ -11,6 +11,7 @@ export const Register = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [message, setMessage] = useState(false);
 
+  //Comprueba si el tokende la url es válido
   useEffect(() => {
     defaultFetch("http://localhost:3001/check-email", "POST", { token: token })
       .then((res) => {
@@ -24,11 +25,11 @@ export const Register = () => {
               navigate("/")
           },3000)
         }
-
       })
 
   }, [])
 
+  //Inserta el nuevo usuario
   const insertUser = async e => {
     e.preventDefault();
     if (e.target.pass.value === e.target.confirmPass.value) {
@@ -51,6 +52,7 @@ export const Register = () => {
             setShowAlert(false);
             navigate("/")
         },3000)
+
       } else {
         setMessage("Ha habido un error, inténtelo de nuevo")
         setShowAlert(true)
@@ -59,6 +61,7 @@ export const Register = () => {
             navigate("/")
         },3000)
       }
+
     } else {
       setMessage("Las contraseñas no coinciden")
       setShowAlert(true)

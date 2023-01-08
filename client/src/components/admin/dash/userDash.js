@@ -11,20 +11,14 @@ export const UserDash = () => {
     const [userOk, setUserOk] = useState();
     const [display, setDisplay] = useState("main");
     const [logo, setLogo] = useState(true);
-
     const cookies = new Cookies();
     var cookieCheck= cookies.get("session");
-   
     
     useEffect(() => { 
-     
         defaultFetch("http://localhost:3001/check", "POST", {token: cookieCheck })
         .then((res) => {
           if (res.mensaje) {setUserOk(true)} else {setUserOk(false)}
-        })
-    
-     }, [])
-
+        })}, [])
 
      if (userOk){ return (
         <div>

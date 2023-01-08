@@ -79,3 +79,12 @@
     width: 15%;
     margin: 0 15px;
 }
+
+.answerNumber {
+    color:rgba(255, 255, 255, 0.479);
+    font-size: 70px;
+    position: relative;
+    bottom:45px;
+    left: 300px;
+    z-index: -1;
+}

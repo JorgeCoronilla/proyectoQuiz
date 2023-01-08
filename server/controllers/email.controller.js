@@ -10,11 +10,6 @@ smtpConfig = {
 }
 const transporter = nodemailer.createTransport(smtpConfig);
 const email = {
-    /**
-     * Envia un email al usuario que desea registrarse para verificar que el email realmente pertenece al usuario.
-     * @param {STRING} jwt JSON web token generado para insertar en la url del enlace de verificación.
-     * @param {STRING} email email del usuario.
-     */
     emailToRegister: async (jwt, email) => {
         var username = email.split("@")[0]
         console.log("enviando correo")
@@ -104,11 +99,7 @@ const email = {
             }
         });
     },
- /**
-     * Envia un correo electrónico con el enlace de recuperación de contraseña
-     * @param {string} token - json web token generado con el email del usuario
-     * @param {string} user_email - dirección de email del usuario que ha solicitado la contraseña.
-     */
+
  recover: async (token, user_email, user_name) => {
 
     var mailOptions = {

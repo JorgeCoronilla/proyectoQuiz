@@ -1,3 +1,6 @@
+//Diferentes Fetch creados como helpers
+
+
 export const defaultFetch = async (endPoint, metodo, datos) => {
     let metaData = {
       method: metodo,
