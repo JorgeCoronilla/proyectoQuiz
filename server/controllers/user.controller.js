@@ -8,10 +8,8 @@ const sendemail = require('../controllers/email.controller');
 
 
 const User = {
-
     login: async (req, res) => {
         const { email, pass } = req.body
-
         try {
             let user = await UserModel.findOne({ where: { email } });
             let compare = bcryptjs.compareSync(pass, user.password_);
