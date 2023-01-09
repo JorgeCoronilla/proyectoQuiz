@@ -33,7 +33,7 @@ export const RecoverPass = ({ setRecover, setDisplay }) => {
         <form onSubmit={recover}>
           <h5>Ingresa el email que usaste para registrarte</h5>
           <h6>Te enviaremos un correo con las instrucciones para cambiar tu contraseña</h6>
-          <input type="email" required name="email" minLength="4" maxLength="12" ></input>
+          <input type="email" required name="email" minLength="4" maxLength="40" ></input>
           <button type='submit'>Enviar</button>
         </form>
       </div>

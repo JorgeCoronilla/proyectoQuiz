@@ -38,7 +38,7 @@ export const Register = () => {
         jwt: token,
         user_name: e.target.user_name.value,
         name_: e.target.name_.value,
-        email:e.target.email.value,
+        email:email,
         country: e.target.country.value,
         password_: e.target.pass.value,
         type_education: e.target.type_education.value,

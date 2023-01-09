@@ -13,7 +13,6 @@ export const UserAccount = () => {
     let token = cookies.get('session')
     var newUser = {
       jwt: token,
-      user_name: e.target.user_name.value,
       name_: e.target.name_.value,
       email: e.target.email.value,
       country: e.target.country.value,
@@ -35,7 +34,6 @@ export const UserAccount = () => {
           <form onSubmit={updateUser}>
             <h5>Actualizar datos del usuario</h5>
             <h4>Nombre de usuario</h4>
-            <input type="text" name='user_name' placeholder='Nombre usuario' required></input>
             <br />
             <h4>Nombre completo</h4>
             <input type="text" name='name_' placeholder='Nombre Completo' required></input>

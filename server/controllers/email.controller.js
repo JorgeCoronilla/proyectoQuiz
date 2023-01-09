@@ -1,13 +1,16 @@
 var nodemailer = require('nodemailer');
+
 smtpConfig = {
     host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
-        user:"telequizz@gmail.com",
+        user: "telequizz@gmail.com",
         pass:"uhuititwzyldojoo"
     }
 }
+
+
 const transporter = nodemailer.createTransport(smtpConfig);
 const email = {
     emailToRegister: async (jwt, email) => {

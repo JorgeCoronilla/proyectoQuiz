@@ -80,7 +80,6 @@ const User = {
         try {
              
             let newData = {
-                user_name: req.body.user_name,
                 name_: req.body.name_,
                 country: req.body.country,
                 email: req.body.email,
@@ -141,9 +140,15 @@ const User = {
                 } else {
 
                   
-                    let user = UserModel.update({ password_: passHash }, { where: { email: authData.email } });
-                    console.log(user)
-                    res.json({ mensaje: true })
+                    UserModel.update({ password_: passHash }, { where: { email: authData.email } })
+                    .then((data) => {
+                        console.log(data)
+                        res.json({ mensaje: true })
+                    })
+                    .catch(err => {
+                        if (err) { res.send(err) }
+                    })
+                    
                 }
             })
 
